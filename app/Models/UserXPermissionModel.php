@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserXPermissionModel extends Model
 {
+    const TABLE = 'user_x_permissions';
+
     protected $table = 'users_x_permissions';
 
     protected $fillable = [
