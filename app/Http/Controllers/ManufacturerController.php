@@ -28,7 +28,7 @@ class ManufacturerController extends Controller
             ])->with('error', "Unhandled exception occurred, please contact support.");
         }
 
-        return view(view: 'manufacturers.index', data: [
+        return view(view: 'pages.manufacturers.index', data: [
             'manufacturers' => $manufacturers
         ]);
     }
