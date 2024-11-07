@@ -3,7 +3,10 @@
 namespace App\Repositories;
 
 use App\Exceptions\EntityNotFoundException;
+use App\Exceptions\GeneralException;
 use App\Models\ManufacturerModel;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
 class ManufacturerRepository implements CrudRepository
@@ -21,5 +24,18 @@ class ManufacturerRepository implements CrudRepository
             throw new EntityNotFoundException(entityName: 'Department');
         }
         return $manufacturers;
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function save(ManufacturerModel|Model $model): void
+    {
+        try {
+            $model->save();
+        }
+        catch (Exception $e) {
+            throw new GeneralException();
+        }
     }
 }

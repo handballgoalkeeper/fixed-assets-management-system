@@ -9,4 +9,6 @@ Route::prefix('manufacturers')
     ->middleware(['auth'])
     ->group(function () {
         Route::get(uri: '/', action: 'index')->name('index');
+        Route::get(uri: '/{manufacturer}', action: 'permalink')->name('permalink');
+        Route::post(uri: '/{manufacturer}/update', action: 'update')->name('update');
     });
