@@ -9,9 +9,13 @@ use Illuminate\View\View;
 
 class ManufacturerController extends Controller
 {
-    public function index(ManufacturerService $service): View {
+    public function __construct(protected ManufacturerService $manufacturerService)
+    {
+    }
+
+    public function index(): View {
         try {
-            $manufacturers = $service->getAllManufacturers();
+            $manufacturers = $this->manufacturerService->getAllManufacturers();
         }
         catch (EntityNotFoundException $e) {
             return view(view: 'manufacturers.index', data: [
