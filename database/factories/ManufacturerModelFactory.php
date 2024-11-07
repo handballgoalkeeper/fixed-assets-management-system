@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\ManufacturerModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ManufacturerModelFactory extends Factory
 {
-
+    protected $model = ManufacturerModel::class;
     /**
      * Define the model's default state.
      *
