@@ -7,6 +7,8 @@ use App\Exceptions\GeneralException;
 use App\Models\ManufacturerHistoryModel;
 use App\Models\ManufacturerModel;
 use App\Repositories\ManufacturerHistoryRepository;
+use Exception;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ManufacturerHistoryService
 {
@@ -28,5 +30,15 @@ class ManufacturerHistoryService
         $historyModel->setAttribute('modified_by', null);
 
         $this->manufacturerHistoryRepository->save($historyModel);
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function findAllPaginated(int $perPage, ManufacturerModel $entity): LengthAwarePaginator
+    {
+        return $this
+            ->manufacturerHistoryRepository
+            ->findAllByIdPaginated(perPage: $perPage, entityId: $entity->getAttribute('id'));
     }
 }
