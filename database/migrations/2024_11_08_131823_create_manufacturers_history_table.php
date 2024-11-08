@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('description', 255)->nullable();
             $table->boolean('is_active');
-            $table->unsignedBigInteger('modified_by');
+            $table->unsignedBigInteger('modified_by')->nullable();
             $table->timestamp('timestamp')->useCurrent();
         });
     }
