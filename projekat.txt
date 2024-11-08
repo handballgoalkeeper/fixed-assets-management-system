@@ -1,0 +1,53 @@
+Kroz projektni zadatak treba izraditi informacioni sistem u formi veb aplikacije. Osnova koja će poslužiti za izradu IS treba da sadrži sledeće elemente:
+
+Struktura ekrana
+
+Navigacija
+
+Ograničenje prava pristupa informacijama u skladu sa ovlašćenjima korisnika
+
+Aplikacija treba da ima najmanje dva korisnička nivoa
+
+Anonimus
+
+Administrator
+
+Korisnik se identifikuje putem login obrasca unošenjem korisničkog imena i lozinke
+
+Prikupljanje podataka
+
+Ručni unos putem veb obrazaca i/ili
+
+Automatizovani unos podataka dostupnih preko mreže ili interneta
+
+Skladištenje i čuvanje podataka na disku i/ili u bazi podataka
+
+
+
+
+
+Obavezni deo projekta
+
+Na ispitu je potrebno da odgovorite na pitanje zašto je Vaša veb aplikacija informacioni sistem! Iz tog razloga, neophodno je da projekat poseduje sledeće elemente:
+
+
+
+Demo podaci
+
+Statistička obrada i vizuelizacija podataka ne mogu da se vrše na malom setu podataka.
+
+Po formiranju strukture baze podataka, generisati veći skup demo podataka i ubaciti u bazu podataka, na način kako je opisano na predavanjima, vežbama ili u udžbeniku.
+
+Statistička obrada i prikaz podataka
+
+Podatke je potrebno filtrirati (pretraga po jednom ili više kriterijuma, npr. vremenski period po datumima od-do)
+
+Pronađeni podaci (podskup) mogu biti prikazani tabelarno i/ili grafički kao dijagram. Ukoliko je podskup veliki, obratiti pažnju na to kako da se prikaže na veb stranici. Primeniti paginaciju.
+
+Obratite pažnju na to koje podatke predstavljate kojim tipom dijagrama (bar chart, pie chart, XY scatter, ...)
+
+Import i/ili eksport informacija
+
+Sa ciljem prebacivanja podataka iz jedne aplikacije u drugu
+
+XML, JSON

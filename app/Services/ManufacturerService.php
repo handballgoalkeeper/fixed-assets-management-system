@@ -7,6 +7,7 @@ use App\Exceptions\GeneralException;
 use App\Models\ManufacturerModel;
 use App\Repositories\ManufacturerRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ManufacturerService
 {
@@ -19,9 +20,9 @@ class ManufacturerService
      *
      * @throws EntityNotFoundException if no manufacturers are found (optional)
      */
-    public function getAllManufacturers(): Collection
+    public function getAllManufacturersPaginated(int $perPage): LengthAwarePaginator
     {
-        return $this->manufacturerRepository->findAll();
+        return $this->manufacturerRepository->findAllPaginated(perPage: $perPage);
     }
 
     /**

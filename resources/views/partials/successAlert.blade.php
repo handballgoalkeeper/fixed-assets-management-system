@@ -1,0 +1,10 @@
+@if(!is_null(session('success')))
+    <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+    </div>
+@endif
+@if(isset($success))
+    <div class="alert alert-danger" role="alert">
+        {{ $success }}
+    </div>
+@endif

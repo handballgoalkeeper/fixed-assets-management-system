@@ -6,6 +6,7 @@ use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
 use App\Http\Requests\ManufacturerRequest;
 use App\Models\ManufacturerModel;
+use App\Services\ManufacturerHistoryService;
 use App\Services\ManufacturerService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -13,22 +14,24 @@ use Illuminate\View\View;
 
 class ManufacturerController extends Controller
 {
-    public function __construct(protected ManufacturerService $manufacturerService)
+    public function __construct(
+        protected ManufacturerService $manufacturerService
+    )
     {
     }
 
     public function index(): View
     {
         try {
-            $manufacturers = $this->manufacturerService->getAllManufacturers();
+            $manufacturers = $this->manufacturerService->getAllManufacturersPaginated(perPage: 10);
         }
         catch (EntityNotFoundException $e) {
-            return view(view: 'manufacturers.index', data: [
+            return view(view: 'pages.manufacturers.index', data: [
                 'manufacturers' => []
             ])->with('error', $e->getMessage());
         }
         catch(Exception $e) {
-            return view(view: 'manufacturers.index', data: [
+            return view(view: 'pages.manufacturers.index', data: [
                 'manufacturers' => []
             ])->with('error', "Unhandled exception occurred, please contact support.");
         }
@@ -61,5 +64,4 @@ class ManufacturerController extends Controller
 
         return redirect()->route('manufacturers.index')->with("success", "Manufacturer successfully updated.");
     }
-
 }
