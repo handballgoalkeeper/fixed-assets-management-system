@@ -7,9 +7,11 @@ use App\Exceptions\GeneralException;
 use App\Models\ManufacturerModel;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
+use \Illuminate\Database\Eloquent\Collection;
 
-class ManufacturerRepository implements CrudRepository
+class ManufacturerRepository implements CrudRepository, PaginatedRepository
 {
 
     /**
@@ -23,6 +25,7 @@ class ManufacturerRepository implements CrudRepository
         if ($manufacturers->isEmpty()) {
             throw new EntityNotFoundException(entityName: 'Department');
         }
+
         return $manufacturers;
     }
 
@@ -37,5 +40,20 @@ class ManufacturerRepository implements CrudRepository
         catch (Exception $e) {
             throw new GeneralException();
         }
+    }
+
+    /**
+     * @inheritdoc
+     * @throws EntityNotFoundException
+     */
+    public function findAllPaginated(int $perPage): LengthAwarePaginator
+    {
+        $manufacturers = DB::table(ManufacturerModel::TABLE)->paginate(perPage: $perPage);
+
+        if ($manufacturers->isEmpty()) {
+            throw new EntityNotFoundException(entityName: 'Department');
+        }
+
+        return $manufacturers;
     }
 }
