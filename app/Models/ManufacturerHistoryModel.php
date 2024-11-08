@@ -10,6 +10,7 @@ class ManufacturerHistoryModel extends Model
 
     protected $table = self::TABLE;
 
+    public $timestamps = false;
     protected $fillable = [
         'manufacturer_id',
         'action',
