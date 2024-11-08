@@ -6,11 +6,8 @@
 
 @section('content')
 <div class="container-fluid">
-    @if(!is_null(session('error')))
-    <div class="alert alert-danger" role="alert">
-        {{ session('error') }}
-    </div>
-    @endif
+    @include('partials.successAlert')
+    @include('partials.errorAlert')
     <form action="{{ route(name: 'manufacturers.update', parameters: [ 'manufacturer' => $manufacturer->id ]) }}" method="POST">
         @csrf
         <div class="form-group mb-3">
