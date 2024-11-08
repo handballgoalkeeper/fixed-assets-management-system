@@ -3,16 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\ManufacturerModel;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
 
 class ManufacturerSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Faker::create();
-
         $numberOfManufacturers = (int) $this
             ->command
             ->ask(question: 'How many manufacturers do you want?', default: 10);
@@ -27,7 +23,7 @@ class ManufacturerSeeder extends Seeder
         $progressBar = $this->command->getOutput()->createProgressBar($numberOfManufacturers);
         $progressBar->start();
 
-        foreach (range(1, $numberOfManufacturers) as $index) {
+        for ($i = 0; $i < $numberOfManufacturers; $i++) {
             ManufacturerModel::factory()->create();
             $progressBar->advance();
         }

@@ -14,12 +14,13 @@ class ManufacturerModel extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'last_modified_by',
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at',
-        'updated_by'
+        'last_modified_by',
     ];
 }
