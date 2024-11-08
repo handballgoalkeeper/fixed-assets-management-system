@@ -26,11 +26,11 @@ class ManufacturerHistoryRepository implements CrudRepository
      */
     public function save(ManufacturerHistoryModel|Model $model): void
     {
-//        try {
-        $model->save();
-//        }
-//        catch (Exception $e) {
-//            throw new GeneralException();
-//        }
+        try {
+            $model->save();
+        }
+        catch (Exception $e) {
+            throw new GeneralException();
+        }
     }
 }
