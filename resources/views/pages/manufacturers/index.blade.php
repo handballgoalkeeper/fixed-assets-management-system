@@ -10,6 +10,11 @@
             {{ session('success') }}
         </div>
     @endif
+    @if(!is_null(session('error')))
+        <div class="alert alert-danger" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="table-responsive">
         <table class="table table-striped table-responsive-sm">
             <thead>
