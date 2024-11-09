@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Exceptions\ValueNotUniqueException;
 use App\Http\Requests\ManufacturerRequest;
 use App\Models\ManufacturerModel;
 use App\Services\ManufacturerHistoryService;
@@ -55,7 +56,7 @@ class ManufacturerController extends Controller
         try {
             $this->manufacturerService->update($requestData, $manufacturer);
         }
-        catch (GeneralException $e) {
+        catch (GeneralException | ValueNotUniqueException $e) {
             return redirect()->back()->with("error", $e->getMessage());
         }
         catch (Exception $e) {

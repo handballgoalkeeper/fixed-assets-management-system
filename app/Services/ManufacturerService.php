@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Exceptions\ValueNotUniqueException;
 use App\Models\ManufacturerModel;
 use App\Repositories\ManufacturerRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -27,9 +28,16 @@ class ManufacturerService
 
     /**
      * @throws GeneralException
+     * @throws ValueNotUniqueException
      */
     public function update(array $requestData, ManufacturerModel $currentData): void
     {
+        if (!$this->manufacturerRepository
+            ->isValueUnique(model: $currentData, column: 'name', value: $requestData['name'])
+        ) {
+            throw new ValueNotUniqueException(entityName: 'Manufacturer', columnName: 'name');
+        }
+
         if ($currentData->getAttribute('name') !== $requestData['name']) {
             $currentData->setAttribute('name', $requestData['name']);
         }
