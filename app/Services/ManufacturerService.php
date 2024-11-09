@@ -38,6 +38,10 @@ class ManufacturerService
             $currentData->setAttribute('description', $requestData['description']);
         }
 
+        if ($currentData->getAttribute('is_active') !== $requestData['isActive']) {
+            $currentData->setAttribute('is_active', $requestData['isActive']);
+        }
+
         $this->manufacturerRepository->save($currentData);
     }
 }
