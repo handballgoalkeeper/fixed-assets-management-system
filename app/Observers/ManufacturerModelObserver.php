@@ -20,7 +20,7 @@ class ManufacturerModelObserver
      */
     public function updated(ManufacturerModel $manufacturerModel): void
     {
-        //
+        app(ManufacturerHistoryService::class)->handleManufacturerUpdated($manufacturerModel);
     }
 
     /**
