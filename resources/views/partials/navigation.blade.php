@@ -1,7 +1,10 @@
 <div class="container-flow">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold text-success fs-4 mx-4" href="{{ route('home') }}">{{ \App\Configs\AppConfig::SHORT_APP_NAME }}</a>
+            <a class="navbar-brand fw-bold text-success fs-4 mx-4" href="{{ route('home') }}">
+                <img src="{{ asset('images/main-brand.png') }}" width="40" alt="BrandLogo">
+                {{ \App\Configs\AppConfig::SHORT_APP_NAME }}
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
