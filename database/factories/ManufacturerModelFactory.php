@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\ManufacturerModel;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +20,7 @@ class ManufacturerModelFactory extends Factory
         return [
             'name' => $this->faker->company(),
             'description' => $this->faker->text(),
-            'last_modified_by' => DB::table('users')->inRandomOrder()->first()->id,
+            'last_modified_by' => DB::table(User::TABLE)->inRandomOrder()->first()->id,
         ];
     }
 }
