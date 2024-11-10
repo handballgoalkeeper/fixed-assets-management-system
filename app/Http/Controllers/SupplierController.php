@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Enums\ErrorMessage;
 use App\Exceptions\EntityNotFoundException;
+use App\Exceptions\GeneralException;
+use App\Exceptions\ValueNotUniqueException;
+use App\Http\Requests\SupplierRequest;
+use App\Models\SupplierModel;
 use App\Services\SupplierService;
 use Exception;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class SupplierController extends Controller
@@ -46,5 +50,33 @@ class SupplierController extends Controller
                 'suppliers' => $suppliers
             ]
         );
+    }
+
+    public function permalink(SupplierModel $supplier): View
+    {
+        return view(
+            view: 'pages.suppliers.permalink',
+            data: [
+                'supplier' => $supplier
+            ]
+        );
+    }
+
+    public function update(SupplierRequest $request, SupplierModel $supplier): RedirectResponse
+    {
+
+        $request = $request->validated();
+
+        try {
+            $this->supplierService->update(requestData: $request, current: $supplier);
+        }
+        catch (ValueNotUniqueException | GeneralException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        catch (Exception $e) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return redirect()->back()->with('success', 'Supplier updated successfully.');
     }
 }

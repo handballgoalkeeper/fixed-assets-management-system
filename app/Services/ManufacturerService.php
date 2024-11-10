@@ -50,6 +50,10 @@ class ManufacturerService
             $currentData->setAttribute('is_active', $requestData['isActive']);
         }
 
+        if ($currentData->isDirty()) {
+            $currentData->setAttribute('last_modified_by', auth()->id());
+        }
+
         $this->manufacturerRepository->save($currentData);
     }
 }
