@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class DepartmentModelFactory extends Factory
 {
     protected $model = DepartmentModel::class;
+    private $nameSufix = 'Department';
 
     public function definition(): array
     {
@@ -24,10 +25,10 @@ class DepartmentModelFactory extends Factory
         $faker = $this->faker;
         $departmentName = $faker->word();
 
-        while (DB::table(DepartmentModel::TABLE)->where('name', '=', $departmentName)->exists()) {
+        while (DB::table(DepartmentModel::TABLE)->where('name', '=', $departmentName . $this->nameSufix)->exists()) {
             $departmentName = $faker->word();
         }
 
-        return $departmentName . 'Department';
+        return $departmentName . $this->nameSufix;
     }
 }
