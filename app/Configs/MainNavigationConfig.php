@@ -2,6 +2,7 @@
 
 namespace App\Configs;
 
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\SupplierController;
 
@@ -23,6 +24,11 @@ class MainNavigationConfig
                 'route' => route('suppliers.index'),
                 'icon' => 'bi-people',
                 'controller' => SupplierController::class,
+            ],
+            'Departments' => [
+                'route' => route('departments.index'),
+                'icon' => 'bi-person-workspace',
+                'controller' => DepartmentController::class,
             ]
         ];
     }
