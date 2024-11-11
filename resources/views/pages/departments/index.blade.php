@@ -7,6 +7,7 @@
 @section('content')
     @include('partials.successAlert')
     @include('partials.errorAlert')
+    <a class="btn btn-primary m-2" href="{{ route('departments.view.create') }}">Add department</a>
     @if(!is_null($departments))
         @include('partials.pagination', ['paginator' => $departments])
         <div class="container-flow table-responsive">
@@ -32,12 +33,12 @@
                             <td class="text-danger">Inactive</td>
                         @endif
                         <td>
-                            <a href="{{ route(name: 'manufacturers.permalink', parameters: [ 'manufacturer' => $department->id] ) }}" class="btn btn-outline-primary">
+                            <a href="{{ route(name: 'departments.permalink', parameters: [ 'department' => $department->id] ) }}" class="btn btn-outline-primary">
                                 View
                             </a>
-                            <a href="{{ route(name: 'manufacturers.history', parameters: [ 'manufacturer' => $department->id] ) }}" class="btn btn-outline-secondary">
-                                History
-                            </a>
+{{--                            <a href="{{ route(name: 'manufacturers.history', parameters: [ 'manufacturer' => $department->id] ) }}" class="btn btn-outline-secondary">--}}
+{{--                                History--}}
+{{--                            </a>--}}
                         </td>
                     </tr>
                 @endforeach
