@@ -7,6 +7,7 @@
 @section('content')
     @include('partials.successAlert')
     @include('partials.errorAlert')
+    <a class="btn btn-primary m-2" href="{{ route('suppliers.view.create') }}">Add supplier</a>
     @if(!is_null($suppliers))
     @include('partials.pagination', ['paginator' => $suppliers])
     <div class="container-flow table-responsive">
