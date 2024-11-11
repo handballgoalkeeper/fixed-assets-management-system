@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isNull;
 
 class SupplierRepository implements CrudRepository, PaginatedRepository
 {
@@ -53,12 +54,19 @@ class SupplierRepository implements CrudRepository, PaginatedRepository
         return $suppliers;
     }
 
-    public function isValueUnique(SupplierModel|Model $model, string $column, mixed $value): bool
+    public function isValueUnique(string $column, mixed $value, SupplierModel|Model $model = null): bool
     {
-        $count = DB::table(SupplierModel::TABLE)
-            ->where(column: $column, operator: '=', value: $value)
-            ->where(column: 'id', operator: '!=', value: $model->getAttribute('id'))
-            ->count();
+        if (is_null($model)) {
+            $count = DB::table(SupplierModel::TABLE)
+                ->where(column: $column, operator: '=', value: $value)
+                ->count();
+        }
+        else {
+            $count = DB::table(SupplierModel::TABLE)
+                ->where(column: $column, operator: '=', value: $value)
+                ->where(column: 'id', operator: '!=', value: $model->getAttribute('id'))
+                ->count();
+        }
 
         return $count === 0;
     }
