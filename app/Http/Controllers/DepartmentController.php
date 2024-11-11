@@ -27,16 +27,12 @@ class DepartmentController extends Controller
     {
         try {
             $departments = $this->departmentService->findAllPaginated();
-        }
-        catch(EntityNotFoundException $e)
-        {
+        } catch (EntityNotFoundException $e) {
             return view(view: 'pages.departments.index', data: [
                 'departments' => null,
                 'error' => $e->getMessage()
             ]);
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             return view(view: 'pages.departments.index', data: [
                 'departments' => null,
                 'error' => ErrorMessage::UNHANDLED_EXCEPTION
@@ -54,13 +50,9 @@ class DepartmentController extends Controller
 
         try {
             $this->departmentService->create($requestData);
-        }
-        catch (GeneralException $e)
-        {
+        } catch (GeneralException $e) {
             return redirect()->back()->with('error', $e->getMessage());
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
         }
 
@@ -80,13 +72,9 @@ class DepartmentController extends Controller
 
         try {
             $this->departmentService->update($requestData, $department);
-        }
-        catch(GeneralException | ValueNotUniqueException $e)
-        {
+        } catch (GeneralException|ValueNotUniqueException $e) {
             return redirect()->back()->with('error', $e->getMessage());
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
         }
 

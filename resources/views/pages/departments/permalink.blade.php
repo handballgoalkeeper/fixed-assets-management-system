@@ -8,15 +8,18 @@
     <div class="container-fluid">
         @include('partials.successAlert')
         @include('partials.errorAlert')
-        <form action="{{ route(name: 'departments.update', parameters: [ 'department' => $department->id ]) }}" method="POST">
+        <form action="{{ route(name: 'departments.update', parameters: [ 'department' => $department->id ]) }}"
+              method="POST">
             @csrf
             <div class="form-group mb-3">
                 <label class="form-label" for="nameInput">Name</label>
-                <input type="text" class="form-control" id="nameInput" name="name" value="{{ $department->name }}" required />
+                <input type="text" class="form-control" id="nameInput" name="name" value="{{ $department->name }}"
+                       required/>
             </div>
             <div class="form-group mb-3">
                 <label class="form-label" for="descriptionInput">Description</label>
-                <input type="text" class="form-control" id="descriptionInput" name="description" value="{{ $department->description }}" />
+                <input type="text" class="form-control" id="descriptionInput" name="description"
+                       value="{{ $department->description }}"/>
             </div>
             <div class="form-group mb-3">
                 <label class="form-label" for="statusSelect">Status</label>

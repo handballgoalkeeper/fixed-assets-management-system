@@ -44,9 +44,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(SupplierService::class, function ($app) {
-           return new SupplierService(
-               supplierRepository: $app->make(SupplierRepository::class)
-           );
+            return new SupplierService(
+                supplierRepository: $app->make(SupplierRepository::class)
+            );
         });
 
         $this->app->singleton(DepartmentRepository::class, function ($app) {

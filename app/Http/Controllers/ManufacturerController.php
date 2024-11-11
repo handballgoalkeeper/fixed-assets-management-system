@@ -9,7 +9,6 @@ use App\Exceptions\ValueNotUniqueException;
 use App\Http\Requests\ManufacturerCreateRequest;
 use App\Http\Requests\ManufacturerRequest;
 use App\Models\ManufacturerModel;
-use App\Services\ManufacturerHistoryService;
 use App\Services\ManufacturerService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -27,13 +26,11 @@ class ManufacturerController extends Controller
     {
         try {
             $manufacturers = $this->manufacturerService->getAllManufacturersPaginated(perPage: 10);
-        }
-        catch (EntityNotFoundException $e) {
+        } catch (EntityNotFoundException $e) {
             return view(view: 'pages.manufacturers.index', data: [
                 'manufacturers' => []
             ])->with('error', $e->getMessage());
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             return view(view: 'pages.manufacturers.index', data: [
                 'manufacturers' => []
             ])->with('error', "Unhandled exception occurred, please contact support.");
@@ -57,11 +54,9 @@ class ManufacturerController extends Controller
 
         try {
             $this->manufacturerService->update($requestData, $manufacturer);
-        }
-        catch (GeneralException | ValueNotUniqueException $e) {
+        } catch (GeneralException|ValueNotUniqueException $e) {
             return redirect()->back()->with("error", $e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with("error", "Unhandled exception occurred, please contact support.");
         }
 
@@ -74,11 +69,9 @@ class ManufacturerController extends Controller
 
         try {
             $this->manufacturerService->create($requestData);
-        }
-        catch (GeneralException | ValueNotUniqueException $e) {
+        } catch (GeneralException|ValueNotUniqueException $e) {
             return redirect()->back()->with("error", $e->getMessage());
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with("error", ErrorMessage::UNHANDLED_EXCEPTION->value);
         }
 

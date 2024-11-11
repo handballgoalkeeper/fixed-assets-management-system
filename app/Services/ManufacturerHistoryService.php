@@ -5,11 +5,9 @@ namespace App\Services;
 use App\Enums\ErrorMessage;
 use App\Enums\ManufacturerHistoryAction;
 use App\Exceptions\GeneralException;
-use App\ManufacturerHistoryMapper;
-use App\Models\ManufacturerHistoryModel;
+use App\Mappers\ManufacturerHistoryMapper;
 use App\Models\ManufacturerModel;
 use App\Repositories\ManufacturerHistoryRepository;
-use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +15,9 @@ class ManufacturerHistoryService
 {
     public function __construct(
         protected ManufacturerHistoryRepository $manufacturerHistoryRepository
-    ) {}
+    )
+    {
+    }
 
     /**
      * @throws GeneralException

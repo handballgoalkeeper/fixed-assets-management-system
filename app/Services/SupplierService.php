@@ -22,7 +22,8 @@ class SupplierService
     /**
      * @throws EntityNotFoundException
      */
-    public function findAllPaginated(int $perPage = 10): LengthAwarePaginator {
+    public function findAllPaginated(int $perPage = 10): LengthAwarePaginator
+    {
         return $this->supplierRepository->findAllPaginated(perPage: $perPage);
     }
 

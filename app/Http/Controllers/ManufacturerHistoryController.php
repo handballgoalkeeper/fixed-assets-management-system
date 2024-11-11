@@ -17,17 +17,16 @@ class ManufacturerHistoryController extends Controller
     {
     }
 
-    public function history(ManufacturerModel $manufacturer): View {
+    public function history(ManufacturerModel $manufacturer): View
+    {
         try {
             $manufacturerHistory = $this->manufacturerHistoryService->findAllPaginated(perPage: 10, entity: $manufacturer);
-        }
-        catch (GeneralException $e) {
+        } catch (GeneralException $e) {
             return view(view: 'pages.manufacturers.history', data: [
                 'manufacturerHistory' => null,
                 'error' => $e->getMessage()
             ]);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return view(view: 'pages.manufacturers.history', data: [
                 'manufacturerHistory' => null,
                 'error' => ErrorMessage::UNHANDLED_EXCEPTION->value

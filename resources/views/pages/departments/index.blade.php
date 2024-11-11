@@ -33,12 +33,13 @@
                             <td class="text-danger">Inactive</td>
                         @endif
                         <td>
-                            <a href="{{ route(name: 'departments.permalink', parameters: [ 'department' => $department->id] ) }}" class="btn btn-outline-primary">
+                            <a href="{{ route(name: 'departments.permalink', parameters: [ 'department' => $department->id] ) }}"
+                               class="btn btn-outline-primary">
                                 View
                             </a>
-{{--                            <a href="{{ route(name: 'manufacturers.history', parameters: [ 'manufacturer' => $department->id] ) }}" class="btn btn-outline-secondary">--}}
-{{--                                History--}}
-{{--                            </a>--}}
+                            {{--                            <a href="{{ route(name: 'manufacturers.history', parameters: [ 'manufacturer' => $department->id] ) }}" class="btn btn-outline-secondary">--}}
+                            {{--                                History--}}
+                            {{--                            </a>--}}
                         </td>
                     </tr>
                 @endforeach

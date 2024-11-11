@@ -12,7 +12,7 @@ class SupplierSeeder extends Seeder
      */
     public function run(): void
     {
-        $supplierCount = (int) $this
+        $supplierCount = (int)$this
             ->command
             ->ask(question: 'How many suppliers do you want to seed?', default: 10);
 

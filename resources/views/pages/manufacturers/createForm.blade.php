@@ -12,11 +12,13 @@
             @csrf
             <div class="form-group mb-3">
                 <label class="form-label" for="nameInput">Name</label>
-                <input type="text" class="form-control" id="nameInput" name="name" placeholder="Please enter name..." required />
+                <input type="text" class="form-control" id="nameInput" name="name" placeholder="Please enter name..."
+                       required/>
             </div>
             <div class="form-group mb-3">
                 <label class="form-label" for="descriptionInput">Description</label>
-                <input type="text" class="form-control" id="descriptionInput" name="description" placeholder="Please enter description..." />
+                <input type="text" class="form-control" id="descriptionInput" name="description"
+                       placeholder="Please enter description..."/>
             </div>
             <div class="float-end">
                 <button type="submit" class="btn btn-success">Save</button>

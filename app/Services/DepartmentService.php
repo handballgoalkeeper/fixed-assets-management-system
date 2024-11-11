@@ -65,7 +65,7 @@ class DepartmentService
             $current->setAttribute('is_active', $requestData['isActive']);
         }
 
-        if($current->isDirty()) {
+        if ($current->isDirty()) {
             $current->setAttribute('last_modified_by', auth()->id());
         }
 

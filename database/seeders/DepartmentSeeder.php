@@ -3,15 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\DepartmentModel;
-use App\Models\ManufacturerModel;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DepartmentSeeder extends Seeder
 {
     public function run(): void
     {
-        $departmentsCount = (int) $this->command->ask('How many departments do you want to create?', 10);
+        $departmentsCount = (int)$this->command->ask('How many departments do you want to create?', 10);
 
         if (!$this->command->ask('Do you want to create all departments?', true)) {
             return;

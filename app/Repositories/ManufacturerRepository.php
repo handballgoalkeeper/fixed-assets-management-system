@@ -6,10 +6,10 @@ use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
 use App\Models\ManufacturerModel;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use \Illuminate\Database\Eloquent\Collection;
 
 class ManufacturerRepository implements CrudRepository, PaginatedRepository
 {
@@ -36,8 +36,7 @@ class ManufacturerRepository implements CrudRepository, PaginatedRepository
     {
         try {
             $model->save();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new GeneralException();
         }
     }
@@ -63,8 +62,7 @@ class ManufacturerRepository implements CrudRepository, PaginatedRepository
             $count = DB::table(ManufacturerModel::TABLE)
                 ->where(column: $column, operator: '=', value: $value)
                 ->count();
-        }
-        else {
+        } else {
             $count = DB::table(ManufacturerModel::TABLE)
                 ->where(column: $column, operator: '=', value: $value)
                 ->where(column: 'id', operator: '!=', value: $model->getAttribute('id'))

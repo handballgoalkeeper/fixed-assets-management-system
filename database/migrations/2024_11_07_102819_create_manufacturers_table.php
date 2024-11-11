@@ -5,8 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create(table: ManufacturerModel::TABLE, callback: function (Blueprint $table) {
@@ -15,7 +14,7 @@ return new class extends Migration
             $table->string(column: 'description', length: 255)->nullable();
             $table->unsignedBigInteger(column: 'created_by')->nullable();
             $table->timestamps();
-            $table->foreign(columns:'created_by')->references(columns:'id')->on(table:'users');
+            $table->foreign(columns: 'created_by')->references(columns: 'id')->on(table: 'users');
         });
     }
 

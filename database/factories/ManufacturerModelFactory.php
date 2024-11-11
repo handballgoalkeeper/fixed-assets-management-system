@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 class ManufacturerModelFactory extends Factory
 {
     protected $model = ManufacturerModel::class;
+
     /**
      * Define the model's default state.
      *

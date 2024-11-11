@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SupplierModel extends Model
 {
     use HasFactory;
+
     const TABLE = 'suppliers';
 
     protected $table = self::TABLE;

@@ -5,13 +5,11 @@ namespace App\Repositories;
 use App\Exceptions\GeneralException;
 use App\Models\ManufacturerHistoryModel;
 use App\Models\User;
-use App\Repositories\CrudRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use function Laravel\Prompts\table;
 
 class ManufacturerHistoryRepository implements CrudRepository, HistoryRepository
 {
@@ -32,8 +30,7 @@ class ManufacturerHistoryRepository implements CrudRepository, HistoryRepository
     {
         try {
             $model->save();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new GeneralException();
         }
     }

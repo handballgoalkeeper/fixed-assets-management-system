@@ -13,7 +13,6 @@ use App\Services\SupplierService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\Request;
 
 class SupplierController extends Controller
 {
@@ -23,11 +22,11 @@ class SupplierController extends Controller
     {
     }
 
-    public function index(): View {
+    public function index(): View
+    {
         try {
             $suppliers = $this->supplierService->findAllPaginated();
-        }
-        catch (EntityNotFoundException $e) {
+        } catch (EntityNotFoundException $e) {
             return view(
                 view: 'pages.suppliers.index',
                 data: [
@@ -35,8 +34,7 @@ class SupplierController extends Controller
                     'error' => $e->getMessage()
                 ]
             );
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return view(
                 view: 'pages.suppliers.index',
                 data: [
@@ -71,11 +69,9 @@ class SupplierController extends Controller
 
         try {
             $this->supplierService->update(requestData: $request, current: $supplier);
-        }
-        catch (ValueNotUniqueException | GeneralException $e) {
+        } catch (ValueNotUniqueException|GeneralException $e) {
             return redirect()->back()->with('error', $e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
         }
 
@@ -88,11 +84,9 @@ class SupplierController extends Controller
 
         try {
             $this->supplierService->create($request);
-        }
-        catch (ValueNotUniqueException | GeneralException $e) {
+        } catch (ValueNotUniqueException|GeneralException $e) {
             return redirect()->back()->with('error', $e->getMessage());
-        }
-        catch(Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
         }
 

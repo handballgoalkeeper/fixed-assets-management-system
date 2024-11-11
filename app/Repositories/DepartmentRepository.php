@@ -5,9 +5,6 @@ namespace App\Repositories;
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
 use App\Models\DepartmentModel;
-use App\Models\ManufacturerModel;
-use App\Repositories\CrudRepository;
-use App\Repositories\PaginatedRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -33,8 +30,7 @@ class DepartmentRepository implements CrudRepository, PaginatedRepository
     {
         try {
             $model->save();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new GeneralException();
         }
     }
@@ -59,8 +55,7 @@ class DepartmentRepository implements CrudRepository, PaginatedRepository
             $count = DB::table(DepartmentModel::TABLE)
                 ->where(column: $column, operator: '=', value: $value)
                 ->count();
-        }
-        else {
+        } else {
             $count = DB::table(DepartmentModel::TABLE)
                 ->where(column: $column, operator: '=', value: $value)
                 ->where(column: 'id', operator: '!=', value: $model->getAttribute('id'))

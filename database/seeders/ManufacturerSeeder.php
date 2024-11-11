@@ -9,7 +9,7 @@ class ManufacturerSeeder extends Seeder
 {
     public function run(): void
     {
-        $numberOfManufacturers = (int) $this
+        $numberOfManufacturers = (int)$this
             ->command
             ->ask(question: 'How many manufacturers do you want?', default: 10);
 

@@ -8,15 +8,15 @@ use App\Exceptions\ValueNotUniqueException;
 use App\Mappers\ManufacturerMapper;
 use App\Models\ManufacturerModel;
 use App\Repositories\ManufacturerRepository;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Auth;
 
 class ManufacturerService
 {
     public function __construct(
         protected ManufacturerRepository $manufacturerRepository
-    ) {}
+    )
+    {
+    }
 
     /**
      * Get all manufacturers from the repository.

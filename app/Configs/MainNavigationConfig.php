@@ -8,7 +8,8 @@ use App\Http\Controllers\SupplierController;
 
 class MainNavigationConfig
 {
-    public static function getMainNavigation(): array {
+    public static function getMainNavigation(): array
+    {
         return [
             'Home' => [
                 'route' => route('home'),

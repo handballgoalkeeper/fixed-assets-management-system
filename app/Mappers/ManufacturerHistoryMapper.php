@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Mappers;
 
 use App\Enums\ManufacturerHistoryAction;
 use App\Models\ManufacturerHistoryModel;
@@ -9,10 +9,11 @@ use App\Models\ManufacturerModel;
 class ManufacturerHistoryMapper
 {
     public static function mapModelToHistoryModelByAction(
-        ManufacturerModel $manufacturer,
+        ManufacturerModel         $manufacturer,
         ManufacturerHistoryAction $action,
 
-    ): ManufacturerHistoryModel {
+    ): ManufacturerHistoryModel
+    {
 
         $history = new ManufacturerHistoryModel();
         $history->setAttribute('manufacturer_id', $manufacturer->getAttribute('id'));
@@ -22,8 +23,7 @@ class ManufacturerHistoryMapper
 
         if ($action === ManufacturerHistoryAction::INSERT) {
             $history->setAttribute('is_active', true);
-        }
-        elseif ($action === ManufacturerHistoryAction::UPDATE) {
+        } elseif ($action === ManufacturerHistoryAction::UPDATE) {
             $history->setAttribute('is_active', $manufacturer->getAttribute('is_active'));
         }
 

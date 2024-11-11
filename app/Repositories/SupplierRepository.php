@@ -4,16 +4,12 @@ namespace App\Repositories;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
-use App\Models\ManufacturerModel;
 use App\Models\SupplierModel;
-use App\Repositories\CrudRepository;
-use App\Repositories\PaginatedRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use function PHPUnit\Framework\isNull;
 
 class SupplierRepository implements CrudRepository, PaginatedRepository
 {
@@ -34,8 +30,7 @@ class SupplierRepository implements CrudRepository, PaginatedRepository
     {
         try {
             $model->save();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new GeneralException();
         }
     }
@@ -60,8 +55,7 @@ class SupplierRepository implements CrudRepository, PaginatedRepository
             $count = DB::table(SupplierModel::TABLE)
                 ->where(column: $column, operator: '=', value: $value)
                 ->count();
-        }
-        else {
+        } else {
             $count = DB::table(SupplierModel::TABLE)
                 ->where(column: $column, operator: '=', value: $value)
                 ->where(column: 'id', operator: '!=', value: $model->getAttribute('id'))
