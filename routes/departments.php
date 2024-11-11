@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/departments')
     ->name('departments.')
-    ->controller(controller:DepartmentController::class)
+    ->controller(DepartmentController::class)
     ->middleware(['auth'])
     ->group(function () {
-        Route::view(uri: '/', view: 'pages.departments.index')->name(name: 'index');
+        Route::get(uri: '/', action: 'index')->name(name: 'index');
     });
