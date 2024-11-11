@@ -7,6 +7,8 @@
 @section('content')
     @include('partials.successAlert')
     @include('partials.errorAlert')
+    <a class="btn btn-primary m-2" href="{{ route('manufacturers.view.create') }}">Add manufacturer</a>
+    @if(!is_null($manufacturers))
     @include('partials.pagination', ['paginator' => $manufacturers])
     <div class="container-flow table-responsive">
         <table class="table table-striped table-responsive-sm">
@@ -44,4 +46,5 @@
         </table>
     </div>
     @include('partials.pagination', ['paginator' => $manufacturers])
+    @endif
 @endsection
