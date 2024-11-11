@@ -7,9 +7,7 @@
 @section('content')
     @include('partials.successAlert')
     @include('partials.errorAlert')
-    <div class="d-flex justify-content-center mt-4">
-        {{ $manufacturers->onEachSide(2)->links('pagination::bootstrap-5') }}
-    </div>
+    @include('partials.pagination', ['paginator' => $manufacturers])
     <div class="container-flow table-responsive">
         <table class="table table-striped table-responsive-sm">
             <thead>
@@ -45,7 +43,5 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-center mt-4">
-        {{ $manufacturers->onEachSide(2)->links('pagination::bootstrap-5') }}
-    </div>
+    @include('partials.pagination', ['paginator' => $manufacturers])
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Configs;
 
 use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\SupplierController;
 
 class MainNavigationConfig
 {
@@ -18,6 +19,11 @@ class MainNavigationConfig
                 'icon' => 'bi-wrench',
                 'controller' => ManufacturerController::class,
             ],
+            'Suppliers' => [
+                'route' => route('suppliers.index'),
+                'icon' => 'bi-people',
+                'controller' => SupplierController::class,
+            ]
         ];
     }
 }
