@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
 use App\Exceptions\ValueNotUniqueException;
+use App\Mappers\SupplierMapper;
 use App\Misc\Helper;
 use App\Models\SupplierModel;
 use App\Repositories\SupplierRepository;
@@ -31,7 +32,7 @@ class SupplierService
      */
     public function update(array $requestData, SupplierModel $current): void
     {
-        if (!$this->supplierRepository->isValueUnique(model: $current, column: 'name', value: $requestData['name'])) {
+        if (!$this->supplierRepository->isValueUnique(column: 'name', value: $requestData['name'], model: $current)) {
             throw new ValueNotUniqueException(entityName: 'Supplier', columnName: 'name');
         }
 
@@ -60,5 +61,21 @@ class SupplierService
         }
 
         $this->supplierRepository->save($current);
+    }
+
+    /**
+     * @throws ValueNotUniqueException
+     * @throws GeneralException
+     */
+    public function create(array $request): void
+    {
+        if (!$this->supplierRepository->isValueUnique(column: 'name', value: $request['name'])) {
+            throw new ValueNotUniqueException(entityName: 'Supplier', columnName: 'name');
+        }
+
+        $supplierModel = SupplierMapper::requestToModel($request);
+        $supplierModel->setAttribute('last_modified_by', auth()->id());
+
+        $this->supplierRepository->save($supplierModel);
     }
 }
