@@ -14,7 +14,7 @@ class DepartmentModelFactory extends Factory
     {
         return [
             'name' => $this->generateUniqueDepartmentName(),
-            'description' => $this->faker->sentence(),
+            'description' => $this->faker->text(maxNbChars: 255),
             'last_modified_by' => DB::table('users')->inRandomOrder()->first()->id,
         ];
     }
