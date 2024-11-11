@@ -16,6 +16,8 @@ Route::prefix('/manufacturers')
         Route::post(uri: '/{manufacturer}/update', action: 'update')
             ->where('manufacturer', '^[1-9][0-9]*$')
             ->name('update');
+        Route::view(uri: '/create', view: 'pages.manufacturers.createForm')->name('view.create');
+        Route::post(uri: '/create', action: 'create')->name('create');
     });
 
 Route::prefix('manufacturers')

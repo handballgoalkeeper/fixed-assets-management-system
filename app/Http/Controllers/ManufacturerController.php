@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ErrorMessage;
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
 use App\Exceptions\ValueNotUniqueException;
+use App\Http\Requests\ManufacturerCreateRequest;
 use App\Http\Requests\ManufacturerRequest;
 use App\Models\ManufacturerModel;
 use App\Services\ManufacturerHistoryService;
@@ -64,5 +66,22 @@ class ManufacturerController extends Controller
         }
 
         return redirect()->route('manufacturers.index')->with("success", "Manufacturer successfully updated.");
+    }
+
+    public function create(ManufacturerCreateRequest $request): RedirectResponse
+    {
+        $requestData = $request->validated();
+
+        try {
+            $this->manufacturerService->create($requestData);
+        }
+        catch (GeneralException | ValueNotUniqueException $e) {
+            return redirect()->back()->with("error", $e->getMessage());
+        }
+        catch(Exception $e) {
+            return redirect()->back()->with("error", ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return redirect()->route(route: 'manufacturers.index')->with("success", "Manufacturer successfully created.");
     }
 }
