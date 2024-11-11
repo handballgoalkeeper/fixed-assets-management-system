@@ -5,10 +5,12 @@ namespace App\Services;
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
 use App\Exceptions\ValueNotUniqueException;
+use App\Mappers\ManufacturerMapper;
 use App\Models\ManufacturerModel;
 use App\Repositories\ManufacturerRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class ManufacturerService
 {
@@ -33,7 +35,7 @@ class ManufacturerService
     public function update(array $requestData, ManufacturerModel $currentData): void
     {
         if (!$this->manufacturerRepository
-            ->isValueUnique(model: $currentData, column: 'name', value: $requestData['name'])
+            ->isValueUnique(column: 'name', value: $requestData['name'], model: $currentData)
         ) {
             throw new ValueNotUniqueException(entityName: 'Manufacturer', columnName: 'name');
         }
@@ -55,5 +57,20 @@ class ManufacturerService
         }
 
         $this->manufacturerRepository->save($currentData);
+    }
+
+    /**
+     * @throws ValueNotUniqueException
+     * @throws GeneralException
+     */
+    public function create(array $requestData): void
+    {
+        if (!$this->manufacturerRepository->isValueUnique(column: 'name', value: $requestData['name'])) {
+            throw new ValueNotUniqueException(entityName: 'Manufacturer', columnName: 'name');
+        }
+
+        $model = ManufacturerMapper::requestToModel($requestData);
+
+        $this->manufacturerRepository->save($model);
     }
 }
