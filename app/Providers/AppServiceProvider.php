@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Repositories\DepartmentRepository;
 use App\Repositories\ManufacturerHistoryRepository;
 use App\Repositories\ManufacturerRepository;
 use App\Repositories\SupplierRepository;
+use App\Services\DepartmentService;
 use App\Services\ManufacturerHistoryService;
 use App\Services\ManufacturerService;
 use App\Services\SupplierService;
@@ -45,6 +47,16 @@ class AppServiceProvider extends ServiceProvider
            return new SupplierService(
                supplierRepository: $app->make(SupplierRepository::class)
            );
+        });
+
+        $this->app->singleton(DepartmentRepository::class, function ($app) {
+            return new DepartmentRepository();
+        });
+
+        $this->app->singleton(DepartmentService::class, function ($app) {
+            return new DepartmentService(
+                departmentRepository: $app->make(DepartmentRepository::class)
+            );
         });
     }
 
