@@ -3,12 +3,22 @@
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('suppliers')
+Route::prefix('/suppliers')
     ->name('suppliers.')
     ->controller(SupplierController::class)
     ->middleware(['auth'])
     ->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get(uri: '/{supplier}', action: 'permalink')->name('permalink');
-        Route::post(uri: '/{supplier}/update', action: 'update')->name('update');
+
+        Route::view(uri: '/create', view: 'pages.suppliers.createForm')->name('view.create');
+
+        Route::post(uri: '/create', action: 'create')->name('create');
+
+        Route::get(uri: '/', action: 'index')->name('index');
+
+        Route::get(uri: '/{supplier}', action: 'permalink')
+            ->where('supplier', '^[1-9][0-9]*$')->name('permalink');
+
+        Route::post(uri: '/{supplier}/update', action: 'update')
+            ->where('supplier', '^[1-9][0-9]*$')->name('update');
+
     });

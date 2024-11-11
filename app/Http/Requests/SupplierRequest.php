@@ -24,9 +24,9 @@ class SupplierRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255|string',
-            'description' => 'required|max:255|string',
-            'pib' => 'max:13|string',
-            'contactPerson' => 'required|max:255|string',
+            'description' => 'max:255|string|nullable',
+            'pib' => 'max:13|string|nullable',
+            'contactPerson' => 'max:255|string|nullable',
             'isActive' => 'required|boolean'
         ];
     }
