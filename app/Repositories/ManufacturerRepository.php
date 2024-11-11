@@ -57,12 +57,19 @@ class ManufacturerRepository implements CrudRepository, PaginatedRepository
         return $manufacturers;
     }
 
-    public function isValueUnique(ManufacturerModel|Model $model, string $column, mixed $value): bool
+    public function isValueUnique(string $column, mixed $value, ManufacturerModel|Model $model = null): bool
     {
-        $count = DB::table(ManufacturerModel::TABLE)
-            ->where(column: $column, operator: '=', value: $value)
-            ->where(column: 'id', operator: '!=', value: $model->getAttribute('id'))
-            ->count();
+        if (is_null($model)) {
+            $count = DB::table(ManufacturerModel::TABLE)
+                ->where(column: $column, operator: '=', value: $value)
+                ->count();
+        }
+        else {
+            $count = DB::table(ManufacturerModel::TABLE)
+                ->where(column: $column, operator: '=', value: $value)
+                ->where(column: 'id', operator: '!=', value: $model->getAttribute('id'))
+                ->count();
+        }
 
         return $count === 0;
     }
