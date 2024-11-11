@@ -70,6 +70,7 @@ class ManufacturerService
         }
 
         $model = ManufacturerMapper::requestToModel($requestData);
+        $model->setAttribute('last_modified_by', auth()->id());
 
         $this->manufacturerRepository->save($model);
     }
