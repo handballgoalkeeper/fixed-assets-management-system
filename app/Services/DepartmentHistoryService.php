@@ -5,16 +5,18 @@ namespace App\Services;
 use App\Enums\ErrorMessage;
 use App\Enums\HistoryAction;
 use App\Exceptions\GeneralException;
+use App\Mappers\DepartmentHistoryMapper;
 use App\Mappers\ManufacturerHistoryMapper;
+use App\Models\DepartmentModel;
 use App\Models\ManufacturerModel;
-use App\Repositories\ManufacturerHistoryRepository;
+use App\Repositories\DepartmentHistoryRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
-class ManufacturerHistoryService
+class DepartmentHistoryService
 {
     public function __construct(
-        protected ManufacturerHistoryRepository $manufacturerHistoryRepository
+        protected DepartmentHistoryRepository $departmentHistoryRepository,
     )
     {
     }
@@ -22,10 +24,10 @@ class ManufacturerHistoryService
     /**
      * @throws GeneralException
      */
-    public function handleManufacturerCreated(ManufacturerModel $manufacturer): void
+    public function handleDepartmentCreated(DepartmentModel $department): void
     {
-        $historyModel = ManufacturerHistoryMapper::mapModelToHistoryModelByAction(
-            manufacturer: $manufacturer,
+        $historyModel = DepartmentHistoryMapper::mapModelToHistoryModelByAction(
+            department: $department,
             action: HistoryAction::INSERT
         );
 
@@ -35,17 +37,17 @@ class ManufacturerHistoryService
             $historyModel->setAttribute('modified_by', Auth::user()->getAuthIdentifier());
         }
 
-        $this->manufacturerHistoryRepository->save($historyModel);
+        $this->departmentHistoryRepository->save($historyModel);
     }
 
     /**
      * @throws GeneralException
      */
-    public function handleManufacturerUpdated(ManufacturerModel $manufacturer): void
+    public function handleManufacturerUpdated(DepartmentModel $department): void
     {
 
-        $historyModel = ManufacturerHistoryMapper::mapModelToHistoryModelByAction(
-            manufacturer: $manufacturer,
+        $historyModel = DepartmentHistoryMapper::mapModelToHistoryModelByAction(
+            department: $department,
             action: HistoryAction::UPDATE
         );
 
@@ -55,16 +57,16 @@ class ManufacturerHistoryService
 
         $historyModel->setAttribute('modified_by', Auth::user()->getAuthIdentifier());
 
-        $this->manufacturerHistoryRepository->save($historyModel);
+        $this->departmentHistoryRepository->save($historyModel);
     }
 
     /**
      * @throws GeneralException
      */
-    public function findAllPaginated(int $perPage, ManufacturerModel $entity): LengthAwarePaginator
+    public function findAllPaginated(int $perPage, DepartmentModel $entity): LengthAwarePaginator
     {
         return $this
-            ->manufacturerHistoryRepository
+            ->departmentHistoryRepository
             ->findAllByIdPaginated(perPage: $perPage, entityId: $entity->getAttribute('id'));
     }
 }

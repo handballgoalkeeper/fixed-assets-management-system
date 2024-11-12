@@ -50,7 +50,7 @@ class DepartmentController extends Controller
 
         try {
             $this->departmentService->create($requestData);
-        } catch (GeneralException $e) {
+        } catch (GeneralException | ValueNotUniqueException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } catch (Exception $e) {
             return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);

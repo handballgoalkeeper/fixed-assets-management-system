@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\DepartmentModelObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy([DepartmentModelObserver::class])]
 class DepartmentModel extends Model
 {
     use HasFactory;
