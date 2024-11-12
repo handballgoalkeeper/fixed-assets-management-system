@@ -41,9 +41,9 @@
                                class="btn btn-outline-primary">
                                 View
                             </a>
-                            {{--                        <a href="{{ route(name: 'manufacturers.history', parameters: [ 'manufacturer' => $supplier->id] ) }}" class="btn btn-outline-secondary">--}}
-                            {{--                            History--}}
-                            {{--                        </a>--}}
+                            <a href="{{ route(name: 'suppliers.history', parameters: [ 'supplier' => $supplier->id] ) }}" class="btn btn-outline-secondary">
+                                History
+                            </a>
                         </td>
                     </tr>
                 @endforeach

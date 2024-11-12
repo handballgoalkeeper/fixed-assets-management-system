@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\SupplierModelObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy([SupplierModelObserver::class])]
 class SupplierModel extends Model
 {
     use HasFactory;
