@@ -6,11 +6,13 @@ use App\Repositories\DepartmentHistoryRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\ManufacturerHistoryRepository;
 use App\Repositories\ManufacturerRepository;
+use App\Repositories\SupplierHistoryRepository;
 use App\Repositories\SupplierRepository;
 use App\Services\DepartmentHistoryService;
 use App\Services\DepartmentService;
 use App\Services\ManufacturerHistoryService;
 use App\Services\ManufacturerService;
+use App\Services\SupplierHistoryService;
 use App\Services\SupplierService;
 use Illuminate\Support\ServiceProvider;
 
@@ -68,6 +70,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(DepartmentHistoryService::class, function ($app) {
             return new DepartmentHistoryService(
                 departmentHistoryRepository: $app->make(DepartmentHistoryRepository::class)
+            );
+        });
+
+        $this->app->singleton(SupplierHistoryRepository::class, function ($app) {
+            return new SupplierHistoryRepository();
+        });
+
+        $this->app->singleton(SupplierHistoryService::class, function ($app) {
+            return new SupplierHistoryService(
+                supplierHistoryRepository: $app->make(SupplierHistoryRepository::class)
             );
         });
     }

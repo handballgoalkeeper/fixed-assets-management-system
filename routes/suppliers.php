@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SupplierHistoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/suppliers')
@@ -21,4 +22,13 @@ Route::prefix('/suppliers')
         Route::post(uri: '/{supplier}/update', action: 'update')
             ->where('supplier', '^[1-9][0-9]*$')->name('update');
 
+    });
+
+Route::prefix('/suppliers')
+    ->name('suppliers.')
+    ->controller(SupplierHistoryController::class)
+    ->group(function () {
+        Route::get(uri: '/{supplier}/history', action: 'history')
+            ->where('supplier', '^[1-9][0-9]*$')
+            ->name('history');
     });
