@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Enums\ErrorMessage;
-use App\Enums\ManufacturerHistoryAction;
+use App\Enums\HistoryAction;
 use App\Exceptions\GeneralException;
 use App\Mappers\ManufacturerHistoryMapper;
 use App\Models\ManufacturerModel;
@@ -26,7 +26,7 @@ class ManufacturerHistoryService
     {
         $historyModel = ManufacturerHistoryMapper::mapModelToHistoryModelByAction(
             manufacturer: $manufacturer,
-            action: ManufacturerHistoryAction::INSERT
+            action: HistoryAction::INSERT
         );
 
         if (!Auth::check()) {
@@ -46,7 +46,7 @@ class ManufacturerHistoryService
 
         $historyModel = ManufacturerHistoryMapper::mapModelToHistoryModelByAction(
             manufacturer: $manufacturer,
-            action: ManufacturerHistoryAction::UPDATE
+            action: HistoryAction::UPDATE
         );
 
         if (!Auth::check()) {

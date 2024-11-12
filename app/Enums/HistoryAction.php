@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum ManufacturerHistoryAction: string
+enum HistoryAction: string
 {
     case INSERT = "INSERT";
     case UPDATE = "UPDATE";
