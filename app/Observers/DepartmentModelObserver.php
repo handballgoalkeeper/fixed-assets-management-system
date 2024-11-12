@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\DepartmentModel;
+use App\Services\DepartmentHistoryService;
 
 class DepartmentModelObserver
 {
@@ -11,7 +12,7 @@ class DepartmentModelObserver
      */
     public function created(DepartmentModel $departmentModel): void
     {
-        //
+        app(DepartmentHistoryService::class)->handleDepartmentCreated($departmentModel);
     }
 
     /**
@@ -19,7 +20,8 @@ class DepartmentModelObserver
      */
     public function updated(DepartmentModel $departmentModel): void
     {
-        //
+        app(DepartmentHistoryService::class)->handleManufacturerUpdated($departmentModel);
+
     }
 
     /**

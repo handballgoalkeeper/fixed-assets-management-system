@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DepartmentHistoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/departments')
@@ -17,4 +18,13 @@ Route::prefix('/departments')
         Route::post(uri: '/{department}/update', action: 'update')
             ->where('department', '^[0-9][1-9]*$')
             ->name(name: 'update');
+    });
+
+Route::prefix('/departments')
+    ->name('departments.')
+    ->controller(DepartmentHistoryController::class)
+    ->middleware(['auth'])
+    ->group(function () {
+        Route::get(uri: '/{department}/history', action: 'index')
+            ->where('department', '^[0-9][1-9]*$')->name(name: 'history');
     });

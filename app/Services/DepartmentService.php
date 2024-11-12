@@ -33,6 +33,7 @@ class DepartmentService
      */
     public function create(array $requestData): void
     {
+
         if (!$this->departmentRepository->isValueUnique(column: 'name', value: $requestData['name'])) {
             throw new ValueNotUniqueException(entityName: 'Department', columnName: 'name');
         }
