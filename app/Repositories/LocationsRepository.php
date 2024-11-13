@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Models\DepartmentModel;
 use App\Models\LocationModel;
 use App\Repositories\CrudRepository;
 use App\Repositories\PaginatedRepository;
@@ -26,10 +27,16 @@ class LocationsRepository implements CrudRepository, PaginatedRepository
 
     /**
      * @inheritDoc
+     * @throws GeneralException
      */
-    public function save(Model $model): void
+    public function save(LocationModel | Model $model): void
     {
-        // TODO: Implement save() method.
+        try {
+            $model->save();
+        }
+        catch (Exception) {
+            throw new GeneralException();
+        }
     }
 
     /**
@@ -50,5 +57,21 @@ class LocationsRepository implements CrudRepository, PaginatedRepository
         }
 
         return $locations;
+    }
+
+    public function isValueUnique(string $column, mixed $value, LocationModel|Model $model = null): bool
+    {
+        if (is_null($model)) {
+            $count = DB::table(LocationModel::TABLE)
+                ->where(column: $column, operator: '=', value: $value)
+                ->count();
+        } else {
+            $count = DB::table(LocationModel::TABLE)
+                ->where(column: $column, operator: '=', value: $value)
+                ->where(column: 'id', operator: '!=', value: $model->getAttribute('id'))
+                ->count();
+        }
+
+        return $count === 0;
     }
 }
