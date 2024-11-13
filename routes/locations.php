@@ -9,4 +9,6 @@ Route::prefix('/locations')
     ->middleware(['auth'])
     ->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::view('/create', 'pages.locations.createForm')->name('view.create');
+        Route::post('/create', 'create')->name('create');
     });
