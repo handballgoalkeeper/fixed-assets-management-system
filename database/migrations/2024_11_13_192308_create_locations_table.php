@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string(column: 'street_name', length: 255);
             $table->string(column: 'street_number', length: 5);
             $table->string(column: 'city', length: 255);
+            $table->boolean(column: 'is_active')->default(true);
             $table->unsignedBigInteger(column:'last_modified_by')->nullable();
             $table->timestamps();
             $table->foreign('last_modified_by')->references('id')->on('users');
