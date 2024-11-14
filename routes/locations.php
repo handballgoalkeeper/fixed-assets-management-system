@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LocationHistoryController;
 use App\Http\Controllers\LocationsController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,14 @@ Route::prefix('/locations')
         Route::post(uri: '/{location}', action: 'update')
             ->where('location', '^[1-9][0-9]*$')
             ->name('update');
+    });
+
+Route::prefix('/locations')
+    ->name('locations.')
+    ->controller(LocationHistoryController::class)
+    ->middleware(['auth'])
+    ->group(function () {
+        Route::get('/{location}/history', 'history')
+            ->where('location', '^[1-9][0-9]*$')
+            ->name('history');
     });
