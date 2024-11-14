@@ -68,11 +68,11 @@ To deploy and run this PHP/Laravel application, follow the steps below:
 1. **Install Dependencies**
     - Clone the repository:
       ```bash
-      git clone https://github.com/yourusername/fixed-asset-management.git
-      cd fixed-asset-management
+      git clone https://github.com/handballgoalkeeper/fixed-assets-management-system.git
+      cd fixed-asset-management-system
       ```
 
-2. **Install Composer**
+2. **Install Composer dependencies**
     - Run the following command to install the required PHP dependencies:
       ```bash
       composer install
