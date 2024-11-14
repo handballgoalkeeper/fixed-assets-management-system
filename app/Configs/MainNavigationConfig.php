@@ -3,6 +3,7 @@
 namespace App\Configs;
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\SupplierController;
 
@@ -30,6 +31,11 @@ class MainNavigationConfig
                 'route' => route('departments.index'),
                 'icon' => 'bi-person-workspace',
                 'controller' => DepartmentController::class,
+            ],
+            'Locations' => [
+                'route' => route('locations.index'),
+                'icon' => 'bi-geo',
+                'controller' => LocationsController::class,
             ]
         ];
     }

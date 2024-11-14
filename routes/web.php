@@ -19,3 +19,4 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/manufacturer.php';
 require __DIR__ . '/suppliers.php';
 require __DIR__ . '/departments.php';
+require __DIR__ . '/locations.php';
