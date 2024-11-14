@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Observers\LocationModelObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy([LocationModelObserver::class])]
 class LocationModel extends Model
 {
     const TABLE = 'locations';
