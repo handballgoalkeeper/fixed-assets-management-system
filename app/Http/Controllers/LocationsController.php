@@ -7,6 +7,8 @@ use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
 use App\Exceptions\ValueNotUniqueException;
 use App\Http\Requests\LocationCreateRequest;
+use App\Http\Requests\LocationUpdateRequest;
+use App\Models\LocationModel;
 use App\Services\LocationsService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -58,5 +60,28 @@ class LocationsController extends Controller
         }
 
         return redirect()->route('locations.index')->with('success', 'Location created successfully.');
+    }
+
+    public function permalink(LocationModel $location): View
+    {
+        return view('pages.locations.permalink', [
+            'location' => $location
+        ]);
+    }
+
+    public function update(LocationUpdateRequest $request, LocationModel $location): RedirectResponse {
+        $requestData = $request->validated();
+
+        try {
+            $this->locationsService->update(requestData: $requestData, location: $location);
+        }
+        catch (GeneralException | ValueNotUniqueException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        catch (Exception) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return redirect()->back()->with('success', 'Location updated successfully.');
     }
 }
