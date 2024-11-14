@@ -31,19 +31,19 @@
                         <td>{{ $location->street_name }}</td>
                         <td>{{ $location->street_number }}</td>
                         <td>{{ $location->city }}</td>
-                        @if( $location->street_number === 1 )
+                        @if( $location->is_active === 1 )
                             <td class="text-success">Active</td>
                         @else
                             <td class="text-danger">Inactive</td>
                         @endif
                         <td>
-                            <a href="{{ route(name: 'departments.permalink', parameters: [ 'department' => $location->id] ) }}"
+                            <a href="{{ route(name: 'locations.permalink', parameters: [ 'location' => $location->id] ) }}"
                                class="btn btn-outline-primary">
                                 View
                             </a>
-                            <a href="{{ route(name: 'departments.history', parameters: [ 'department' => $location->id] ) }}" class="btn btn-outline-secondary">
-                                History
-                            </a>
+{{--                            <a href="{{ route(name: 'departments.history', parameters: [ 'department' => $location->id] ) }}" class="btn btn-outline-secondary">--}}
+{{--                                History--}}
+{{--                            </a>--}}
                         </td>
                     </tr>
                 @endforeach
