@@ -2,17 +2,18 @@
 
 namespace App\Observers;
 
-use App\Models\LocationHistoryModel;
+use App\Models\LocationModel;
+use App\Services\LocationHistoryService;
 
 class LocationModelObserver
 {
-    public function created(LocationHistoryModel $locationHistoryModel): void
+    public function created(LocationModel $locationHistoryModel): void
     {
-        //
+        app(LocationHistoryService::class)->handleLocationCreated($locationHistoryModel);
     }
-    
-    public function updated(LocationHistoryModel $locationHistoryModel): void
+
+    public function updated(LocationModel $locationHistoryModel): void
     {
-        //
+        app(LocationHistoryService::class)->handleLocationUpdated($locationHistoryModel);
     }
 }
