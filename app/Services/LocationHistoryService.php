@@ -8,6 +8,7 @@ use App\Mappers\LocationHistoryMapper;
 use App\Mappers\ManufacturerHistoryMapper;
 use App\Models\LocationModel;
 use App\Repositories\LocationHistoryRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
 class LocationHistoryService
@@ -36,6 +37,9 @@ class LocationHistoryService
         $this->locationHistoryRepository->save($historyModel);
     }
 
+    /**
+     * @throws GeneralException
+     */
     public function handleLocationUpdated(LocationModel $locationModel): void {
         $historyModel = LocationHistoryMapper::mapModelToHistoryModelByAction(
             location: $locationModel,
@@ -49,5 +53,12 @@ class LocationHistoryService
         }
 
         $this->locationHistoryRepository->save($historyModel);
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function findAllByLocationPaginated(int $perPage, LocationModel $location): LengthAwarePaginator {
+        return $this->locationHistoryRepository->findAllByIdPaginated(perPage: $perPage, entityId: $location->getAttribute('id'));
     }
 }
