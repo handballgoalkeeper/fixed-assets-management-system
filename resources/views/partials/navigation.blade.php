@@ -19,6 +19,11 @@
                             </a>
                         </li>
                     @endforeach
+                        <li class="nav-item">
+                            <a href="{{ route('logout') }}" class="nav-link text-danger fw-bolder">
+                                <i class="fs-4"></i> <span>Log out</span>
+                            </a>
+                        </li>
                 </ul>
             </div>
         </div>
