@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'pages.home')->name('home');
+Route::view('/', 'pages.home')->name('home')->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
