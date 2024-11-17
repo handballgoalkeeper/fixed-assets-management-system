@@ -13,6 +13,8 @@ class GroupXPermissionModel extends Model
     public $timestamps = false;
 
     protected $fillable = [
-
+        'group_id',
+        'permission_id',
+        'granted_by',
     ];
 }
