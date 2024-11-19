@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'pages.home')->name('home')->middleware('auth');
+Route::view('/', 'pages.home')->middleware('auth')->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -20,3 +20,4 @@ require __DIR__ . '/manufacturer.php';
 require __DIR__ . '/suppliers.php';
 require __DIR__ . '/departments.php';
 require __DIR__ . '/locations.php';
+require __DIR__ . '/admin.php';
