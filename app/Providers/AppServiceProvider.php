@@ -4,18 +4,22 @@ namespace App\Providers;
 
 use App\Repositories\DepartmentHistoryRepository;
 use App\Repositories\DepartmentRepository;
+use App\Repositories\GroupRepository;
 use App\Repositories\LocationHistoryRepository;
 use App\Repositories\LocationsRepository;
 use App\Repositories\ManufacturerHistoryRepository;
 use App\Repositories\ManufacturerRepository;
+use App\Repositories\PermissionRepository;
 use App\Repositories\SupplierHistoryRepository;
 use App\Repositories\SupplierRepository;
 use App\Services\DepartmentHistoryService;
 use App\Services\DepartmentService;
+use App\Services\GroupService;
 use App\Services\LocationHistoryService;
 use App\Services\LocationsService;
 use App\Services\ManufacturerHistoryService;
 use App\Services\ManufacturerService;
+use App\Services\PermissionService;
 use App\Services\SupplierHistoryService;
 use App\Services\SupplierService;
 use Illuminate\Support\ServiceProvider;
@@ -106,6 +110,27 @@ class AppServiceProvider extends ServiceProvider
                 locationHistoryRepository: $app->make(LocationHistoryRepository::class)
             );
         });
+
+        $this->app->singleton(PermissionRepository::class, function ($app) {
+            return new PermissionRepository();
+        });
+
+        $this->app->singleton(PermissionService::class, function ($app) {
+            return new PermissionService(
+                permissionRepository: $app->make(PermissionRepository::class)
+            );
+        });
+
+        $this->app->singleton(GroupRepository::class, function ($app) {
+            return new GroupRepository();
+        });
+
+        $this->app->singleton(GroupService::class, function ($app) {
+            return new GroupService(
+                groupRepository: $app->make(GroupRepository::class)
+            );
+        });
+
     }
 
     /**
