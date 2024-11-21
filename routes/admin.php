@@ -20,6 +20,15 @@ Route::prefix('/admin/groups')
         Route::post(uri: '/{group}/edit', action: 'update')
             ->where('group', '^[0-9][1-9]*$')
             ->name('update');
+        Route::get(uri: '/{group}/permissions', action: 'permissions')
+            ->where('group', '^[1-9][0-9]*$')
+            ->name('permissions');
+        Route::post(uri: '/{group}/permissions/grant', action: 'grantPermission')
+            ->where('group', '^[1-9][0-9]*$')
+            ->name('grantPermission');
+        Route::get(uri: '/{group}/permissions/{permission}/revoke', action: 'revokePermission')
+            ->where('group', '^[1-9][0-9]*$')
+            ->name('revokePermission');
     });
 
 Route::prefix('/admin/permissions')

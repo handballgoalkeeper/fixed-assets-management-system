@@ -34,6 +34,7 @@
                         @endif
                         <td>
                             <a class="btn btn-outline-secondary" href="{{ route('admin.groups.permalink', [ 'group' => $group->id]) }}">View</a>
+                            <a class="btn btn-outline-secondary" href="{{ route('admin.groups.permissions', [ 'group' => $group->id]) }}">Permissions</a>
                         </td>
                     </tr>
                 @endforeach

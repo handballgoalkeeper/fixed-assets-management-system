@@ -3,9 +3,11 @@
 namespace App\Repositories;
 
 use App\Exceptions\EntityNotFoundException;
+use App\Exceptions\GeneralException;
 use App\Models\PermissionModel;
 use App\Repositories\CrudRepository;
 use App\Repositories\PaginatedRepository;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -16,10 +18,17 @@ class PermissionRepository implements CrudRepository, PaginatedRepository
 
     /**
      * @inheritDoc
+     * @throws EntityNotFoundException
      */
     public function findAll(): Collection
     {
-        // TODO: Implement findAll() method.
+        $permissions = PermissionModel::all();
+
+        if ($permissions->isEmpty()) {
+            throw new EntityNotFoundException(entityName: 'Permission');
+        }
+
+        return $permissions;
     }
 
     /**
