@@ -4,11 +4,16 @@ namespace App\Services;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Exceptions\PermissionAlreadyInGroup;
 use App\Exceptions\ValueNotUniqueException;
 use App\Mappers\GroupMapper;
 use App\Misc\Helper;
 use App\Models\GroupModel;
+use App\Models\GroupXPermissionModel;
 use App\Repositories\GroupRepository;
+use App\Repositories\GroupXPermissionRepository;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\TextUI\Help;
@@ -16,7 +21,8 @@ use PHPUnit\TextUI\Help;
 class GroupService
 {
     public function __construct(
-        protected GroupRepository $groupRepository
+        protected GroupRepository $groupRepository,
+        protected GroupXPermissionRepository $groupXPermissionRepository
     )
     {
     }
@@ -73,5 +79,54 @@ class GroupService
         }
 
         $this->groupRepository->save($currentModel);
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function getAssignedPermissionsByGroupPaginated(GroupModel $group, int $perPage): LengthAwarePaginator
+    {
+        return $this->groupRepository->getPermissionsByGroupIdPaginated(groupId: $group->id, perPage: $perPage);
+    }
+
+    /**
+     * @throws GeneralException
+     * @throws PermissionAlreadyInGroup
+     */
+    public function grantPermissionToGroup(GroupModel $group, int $permissionId): void
+    {
+        if ($this->groupXPermissionRepository
+            ->isPermissionAlreadyGranted(groupId: $group->getAttribute('id'), permissionId: $permissionId)) {
+            throw new PermissionAlreadyInGroup();
+        }
+
+        $model = new GroupXPermissionModel([
+            'group_id' => $group->getAttribute('id'),
+            'permission_id' => $permissionId,
+            'granted_by' => auth()->id()
+        ]);
+
+        $this->groupXPermissionRepository->save($model);
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function revokePermission(GroupXPermissionModel $model): void
+    {
+        $this->groupXPermissionRepository->destroy($model);
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function destroy(GroupXPermissionModel $model): void
+    {
+        try {
+            $model->delete();
+        }
+        catch (Exception) {
+            throw new GeneralException();
+        }
     }
 }

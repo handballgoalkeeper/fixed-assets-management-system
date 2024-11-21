@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Enums\ErrorMessage;
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Exceptions\PermissionAlreadyInGroup;
 use App\Exceptions\ValueNotUniqueException;
+use App\Http\Requests\GrantPermissionRequest;
 use App\Http\Requests\GroupCreateRequest;
 use App\Http\Requests\GroupUpdateRequest;
 use App\Models\GroupModel;
+use App\Models\GroupXPermissionModel;
 use App\Services\GroupService;
+use App\Services\PermissionService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -83,5 +87,54 @@ class GroupsController extends Controller
         }
 
         return redirect()->back()->with('success', 'Group updated successfully.');
+    }
+
+    public function permissions(GroupModel $group, PermissionService $permissionService): View | RedirectResponse
+    {
+        try {
+            $allPermissions = $permissionService->findAll();
+            $assignedPermissions = $this->groupService->getAssignedPermissionsByGroupPaginated(group: $group, perPage: 10);
+        }
+        catch(EntityNotFoundException $exception) {
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
+        catch (Exception) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return view(view: 'pages.admin.groups.permissions', data: [
+           'allPermissions' => $allPermissions,
+            'assignedPermissions' => $assignedPermissions,
+            'group' => $group
+        ]);
+    }
+
+    public function grantPermission(GrantPermissionRequest $request, GroupModel $group): RedirectResponse
+    {
+        $requestData = $request->validated();
+
+        try {
+            $this->groupService->grantPermissionToGroup(group: $group, permissionId: $requestData['selectedPermission']);
+        }
+        catch (GeneralException | PermissionAlreadyInGroup $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        catch (Exception) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return redirect()->back()->with('success', 'Permission granted successfully.');
+    }
+
+    public function revokePermission(GroupModel $group, GroupXPermissionModel $permission): RedirectResponse
+    {
+        try {
+            $this->groupService->revokePermission(model: $permission);
+        }
+        catch (Exception) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return redirect()->back()->with('success', 'Permission revoked successfully.');
     }
 }

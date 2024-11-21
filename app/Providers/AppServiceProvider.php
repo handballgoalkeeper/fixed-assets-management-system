@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Repositories\DepartmentHistoryRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\GroupRepository;
+use App\Repositories\GroupXPermissionRepository;
 use App\Repositories\LocationHistoryRepository;
 use App\Repositories\LocationsRepository;
 use App\Repositories\ManufacturerHistoryRepository;
@@ -127,10 +128,14 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(GroupService::class, function ($app) {
             return new GroupService(
-                groupRepository: $app->make(GroupRepository::class)
+                groupRepository: $app->make(GroupRepository::class),
+                groupXPermissionRepository: $app->make(GroupXPermissionRepository::class)
             );
         });
 
+        $this->app->singleton(GroupXPermissionRepository::class, function ($app) {
+            return new GroupXPermissionRepository();
+        });
     }
 
     /**

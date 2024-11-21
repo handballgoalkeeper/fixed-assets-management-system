@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
 use App\Models\GroupModel;
+use App\Models\GroupXPermissionModel;
+use App\Models\PermissionModel;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -64,5 +66,28 @@ class GroupRepository implements CrudRepository, PaginatedRepository
         }
 
         return $count === 0;
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function getPermissionsByGroupIdPaginated(int $groupId, int $perPage): LengthAwarePaginator
+    {
+        try {
+            $permissions = DB::table(GroupXPermissionModel::TABLE . ' AS gxp')
+                ->join(table: PermissionModel::TABLE . ' AS p', first: 'gxp.permission_id', operator: '=', second: 'p.id')
+                ->select([
+                    'gxp.id as id',
+                    'p.name as name',
+                    'p.description as description'
+                ])
+                ->where(column: 'gxp.group_id', operator: '=', value: $groupId)
+            ->paginate($perPage);
+        }
+        catch(Exception $e) {
+            throw new GeneralException();
+        }
+
+        return $permissions;
     }
 }
