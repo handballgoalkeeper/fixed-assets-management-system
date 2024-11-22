@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::view(uri: '/admin/', view: 'pages.admin.index')->middleware(['auth'])->name(name: 'admin.index');
@@ -34,6 +35,14 @@ Route::prefix('/admin/groups')
 Route::prefix('/admin/permissions')
     ->name('admin.permissions.')
     ->controller(PermissionsController::class)
+    ->middleware(['auth'])
+    ->group(function () {
+        Route::get(uri: '/', action: 'index')->name('index');
+    });
+
+Route::prefix('/admin/users')
+    ->name('admin.users.')
+    ->controller(UserController::class)
     ->middleware(['auth'])
     ->group(function () {
         Route::get(uri: '/', action: 'index')->name('index');
