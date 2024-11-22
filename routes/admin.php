@@ -46,4 +46,6 @@ Route::prefix('/admin/users')
     ->middleware(['auth'])
     ->group(function () {
         Route::get(uri: '/', action: 'index')->name('index');
+        Route::view(uri: '/create', view: 'pages.admin.users.createForm')->name('view.create');
+        Route::post(uri: '/create', action: 'create')->name(name: 'create');
     });

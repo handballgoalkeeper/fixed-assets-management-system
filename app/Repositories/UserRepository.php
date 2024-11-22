@@ -18,9 +18,17 @@ class UserRepository implements CrudRepository, PaginatedRepository
         // TODO: Implement findAll() method.
     }
 
+    /**
+     * @throws GeneralException
+     */
     public function save(Model $model): void
     {
-        // TODO: Implement save() method.
+        try {
+            $model->save();
+        }
+        catch (Exception $e) {
+            throw new GeneralException();
+        }
     }
 
     /**
