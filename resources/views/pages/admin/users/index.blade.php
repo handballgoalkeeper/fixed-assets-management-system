@@ -33,8 +33,8 @@
                             <td class="text-danger">Inactive</td>
                         @endif
                         <td>
-                            <a class="btn btn-outline-secondary" href="{{ route('admin.users.permalink', [ 'user' => $user->id]) }}">View</a>
-                            <a class="btn btn-outline-secondary">Groups</a>
+                            <a class="btn btn-outline-secondary" href="{{ route('admin.users.permalink', [ 'user' => $user->id] ) }}">View</a>
+                            <a class="btn btn-outline-secondary" href="{{ route('admin.users.groups', [ 'user' => $user->id] ) }}">Groups</a>
                         </td>
                     </tr>
                 @endforeach

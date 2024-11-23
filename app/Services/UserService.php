@@ -5,17 +5,21 @@ namespace App\Services;
 use App\Enums\UserAction;
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Exceptions\GroupAlreadyGranted;
 use App\Exceptions\ValueNotUniqueException;
 use App\Mappers\UserMapper;
 use App\Misc\Helper;
 use App\Models\User;
+use App\Models\UserXGroupModel;
 use App\Repositories\UserRepository;
+use App\Repositories\UserXGroupsRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserService
 {
     public function __construct(
-        protected UserRepository $userRepository
+        protected UserRepository $userRepository,
+        protected UserXGroupsRepository $userXGroupsRepository
     )
     {
     }
@@ -66,5 +70,35 @@ class UserService
         }
 
         $this->userRepository->save($current);
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function getAssignedGroups(User $user, int $perPage): LengthAwarePaginator
+    {
+        return $this->userXGroupsRepository->findGroupsByUserIdPaginated(perPage: $perPage, userId: $user->getAttribute('id'));
+    }
+
+    /**
+     * @throws GeneralException
+     * @throws GroupAlreadyGranted
+     */
+    public function assignGroupToUser(User $user, array $requestData): void
+    {
+        if ($this->userXGroupsRepository
+            ->isGroupAlreadyGranted(userId: $user->getAttribute('id'), groupId: $requestData['selectedGroup'])) {
+            throw new GroupAlreadyGranted();
+        }
+
+
+        $model = new UserXGroupModel([
+            'user_id' => $user->getAttribute('id'),
+            'group_id' => $requestData['selectedGroup'],
+            'granted_by' => auth()->id(),
+        ]);
+
+        $this->userXGroupsRepository->save($model);
+
     }
 }

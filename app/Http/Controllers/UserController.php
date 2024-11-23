@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ErrorMessage;
+use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Exceptions\GroupAlreadyGranted;
 use App\Exceptions\ValueNotUniqueException;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\GrantGroupToUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Services\GroupService;
 use App\Services\UserService;
 use Exception;
 use Illuminate\Foundation\Http\FormRequest;
@@ -82,5 +86,42 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('success', 'User updated successfully.');
+    }
+
+    public function groups(User $user, GroupService $groupsService): View | RedirectResponse
+    {
+        try {
+            $allGroups = $groupsService->findAll();
+            $assignedGroups = $this->userService->getAssignedGroups(user: $user, perPage: 10);
+        }
+        catch(GeneralException | EntityNotFoundException $exception) {
+            return redirect()->back()->with('error', $exception->getMessage());
+        }
+        catch (Exception) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return view(view: 'pages.admin.users.groups', data: [
+            'allGroups' => $allGroups,
+            'assignedGroups' => $assignedGroups,
+            'user' => $user
+        ]);
+    }
+
+    public function grantGroup(GrantGroupToUserRequest $request, User $user): RedirectResponse
+    {
+        $requestData = $request->validated();
+
+        try {
+            $this->userService->assignGroupToUser(user: $user, requestData: $requestData);
+        }
+        catch (GeneralException | GroupAlreadyGranted $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        catch (Exception) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return redirect()->back()->with('success', 'User granted successfully.');
     }
 }

@@ -54,4 +54,14 @@ Route::prefix('/admin/users')
         Route::post(uri: '/{user}/update', action: 'update')
             ->where('user', '^[0-9][1-9]*$')
             ->name(name: 'update');
+        Route::get(uri: '/{user}/groups', action: 'groups')
+            ->where('user', '^[1-9][0-9]*$')
+            ->name('groups');
+        Route::post(uri: '/{user}/groups/grant', action: 'grantGroup')
+            ->where('user', '^[1-9][0-9]*$')
+            ->name('grantGroup');
+        Route::get(uri: '/{user}/groups/{group}/revoke', action: 'revokeGroup')
+            ->where('user', '^[1-9][0-9]*$')
+            ->where('group', '^[1-9][0-9]*$')
+            ->name('revokeGroup');
     });
