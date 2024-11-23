@@ -6,8 +6,11 @@ use App\Enums\ErrorMessage;
 use App\Exceptions\GeneralException;
 use App\Exceptions\ValueNotUniqueException;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 use App\Services\UserService;
 use Exception;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -57,5 +60,27 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('success', 'User created successfully.');
+    }
+
+    public function permalink(User $user): View {
+        return view(view: 'pages.admin.users.permalink', data: [
+            'user' => $user
+        ]);
+    }
+
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
+    {
+        $requestData = $request->validated();
+        try {
+            $this->userService->updateUser(requestData: $requestData, current: $user);
+        }
+        catch (GeneralException  | ValueNotUniqueException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        catch(Exception) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return redirect()->back()->with('success', 'User updated successfully.');
     }
 }

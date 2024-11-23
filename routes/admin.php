@@ -48,4 +48,10 @@ Route::prefix('/admin/users')
         Route::get(uri: '/', action: 'index')->name('index');
         Route::view(uri: '/create', view: 'pages.admin.users.createForm')->name('view.create');
         Route::post(uri: '/create', action: 'create')->name(name: 'create');
+        Route::get(uri: '/{user}', action: 'permalink')
+            ->where('user', '^[0-9][1-9]*$')
+            ->name(name: 'permalink');
+        Route::post(uri: '/{user}/update', action: 'update')
+            ->where('user', '^[0-9][1-9]*$')
+            ->name(name: 'update');
     });

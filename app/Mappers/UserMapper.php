@@ -2,6 +2,7 @@
 
 namespace App\Mappers;
 
+use App\Enums\UserAction;
 use App\Models\User;
 
 class UserMapper
