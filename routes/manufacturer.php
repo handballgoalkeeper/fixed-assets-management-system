@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/manufacturers')
     ->name('manufacturers.')
     ->controller(ManufacturerController::class)
-    ->middleware(['auth'])
+    ->middleware(['auth', 'HasPermission:manufacturers-crud'])
     ->group(function () {
         Route::get(uri: '/', action: 'index')->name('index');
         Route::get(uri: '/{manufacturer}', action: 'permalink')
