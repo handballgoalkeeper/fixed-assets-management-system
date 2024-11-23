@@ -4,8 +4,12 @@ namespace App\Repositories;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Models\GroupModel;
+use App\Models\GroupXPermissionModel;
 use App\Models\LocationModel;
+use App\Models\PermissionModel;
 use App\Models\User;
+use App\Models\UserXGroupModel;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -67,5 +71,29 @@ class UserRepository implements CrudRepository, PaginatedRepository
         }
 
         return $count === 0;
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function getUserPermissionsByUserId(int $userId): \Illuminate\Support\Collection
+    {
+        try {
+            $userPermissions =  DB::table(table: UserXGroupModel::TABLE . ' AS uxg')
+                ->select(columns: [
+                    'p.name AS name'
+                ])
+                ->join(table: GroupXPermissionModel::TABLE . ' AS gxp', first: 'uxg.group_id', operator: '=', second: 'gxp.group_id')
+                ->join(table: PermissionModel::TABLE . ' AS p', first: 'gxp.permission_id', operator: '=', second: 'p.id')
+                ->join(table: GroupModel::TABLE . ' AS g', first: 'gxp.group_id', operator: '=', second: 'g.id')
+                ->where(column: 'uxg.user_id', operator: '=', value: auth()->id())
+                ->where(column: 'g.is_active', operator: '=', value: true)
+                ->groupBy(column: 'p.name')->get();
+        }
+        catch (Exception) {
+            throw new GeneralException();
+        }
+
+        return $userPermissions;
     }
 }

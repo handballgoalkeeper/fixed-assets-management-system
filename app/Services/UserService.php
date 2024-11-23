@@ -14,6 +14,7 @@ use App\Models\UserXGroupModel;
 use App\Repositories\UserRepository;
 use App\Repositories\UserXGroupsRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Ramsey\Collection\Collection;
 
 class UserService
 {
@@ -105,8 +106,16 @@ class UserService
     /**
      * @throws GeneralException
      */
-    public function revokeGroup(UserXGroupModel $model)
+    public function revokeGroup(UserXGroupModel $model): void
     {
         $this->userXGroupsRepository->destroy($model);
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function getUserPermissionsByUserId(int $userId): \Illuminate\Support\Collection
+    {
+        return $this->userRepository->getUserPermissionsByUserId(userId: $userId);
     }
 }
