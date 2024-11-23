@@ -15,7 +15,7 @@ return new class extends Migration
             $table->dropForeign('group_x_permissions_group_id_foreign');
             $table->dropForeign('group_x_permissions_permission_id_foreign');
             $table->dropPrimary();
-            $table->id();
+            $table->unsignedBigInteger('id')->autoIncrement()->first();
             $table->foreign(columns: 'group_id')->references('id')->on(table: GroupModel::TABLE);
             $table->foreign(columns: 'permission_id')->references('id')->on(table: PermissionModel::TABLE);
         });

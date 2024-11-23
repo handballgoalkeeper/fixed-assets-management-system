@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method static paginate(int $perPage)
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -23,6 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'last_modified_by',
+        'is_active'
     ];
 
     /**
@@ -33,6 +38,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'last_modified_by'
     ];
 
     /**

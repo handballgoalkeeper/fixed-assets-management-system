@@ -4,6 +4,7 @@ namespace App\Configs;
 
 use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\UserController;
 
 class AdminPanelNavigationConfig
 {
@@ -24,6 +25,11 @@ class AdminPanelNavigationConfig
                 'route' => route('admin.permissions.index'),
                 'icon' => 'bi-person-vcard',
                 'controller' => PermissionsController::class,
+            ],
+            'Users' => [
+                'route' => route('admin.users.index'),
+                'icon' => 'bi-person',
+                'controller' => UserController::class,
             ],
         ];
     }

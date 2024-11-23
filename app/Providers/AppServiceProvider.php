@@ -13,6 +13,7 @@ use App\Repositories\ManufacturerRepository;
 use App\Repositories\PermissionRepository;
 use App\Repositories\SupplierHistoryRepository;
 use App\Repositories\SupplierRepository;
+use App\Repositories\UserRepository;
 use App\Services\DepartmentHistoryService;
 use App\Services\DepartmentService;
 use App\Services\GroupService;
@@ -23,6 +24,7 @@ use App\Services\ManufacturerService;
 use App\Services\PermissionService;
 use App\Services\SupplierHistoryService;
 use App\Services\SupplierService;
+use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -135,6 +137,16 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(GroupXPermissionRepository::class, function ($app) {
             return new GroupXPermissionRepository();
+        });
+
+        $this->app->singleton(UserRepository::class, function ($app) {
+            return new UserRepository();
+        });
+
+        $this->app->singleton(UserService::class, function ($app) {
+            return new UserService(
+                userRepository: $app->make(UserRepository::class)
+            );
         });
     }
 
