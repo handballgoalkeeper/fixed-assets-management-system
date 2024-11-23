@@ -18,10 +18,23 @@ class GroupRepository implements CrudRepository, PaginatedRepository
 
     /**
      * @inheritDoc
+     * @throws GeneralException
+     * @throws EntityNotFoundException
      */
     public function findAll(): Collection
     {
-        // TODO: Implement findAll() method.
+        try {
+            $groups = GroupModel::all();
+        }
+        catch (Exception $e) {
+            throw new GeneralException();
+        }
+
+        if ($groups->isEmpty()) {
+            throw new EntityNotFoundException('Groups');
+        }
+
+        return $groups;
     }
 
     /**

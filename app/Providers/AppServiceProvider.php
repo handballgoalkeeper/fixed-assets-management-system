@@ -14,6 +14,7 @@ use App\Repositories\PermissionRepository;
 use App\Repositories\SupplierHistoryRepository;
 use App\Repositories\SupplierRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\UserXGroupsRepository;
 use App\Services\DepartmentHistoryService;
 use App\Services\DepartmentService;
 use App\Services\GroupService;
@@ -143,9 +144,14 @@ class AppServiceProvider extends ServiceProvider
             return new UserRepository();
         });
 
+        $this->app->singleton(UserXGroupsRepository::class, function ($app) {
+            return new UserXGroupsRepository();
+        });
+
         $this->app->singleton(UserService::class, function ($app) {
             return new UserService(
-                userRepository: $app->make(UserRepository::class)
+                userRepository: $app->make(UserRepository::class),
+                userXGroupsRepository: $app->make(UserXGroupsRepository::class)
             );
         });
     }

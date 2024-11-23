@@ -1,14 +1,14 @@
 @extends('adminPanelTemplate')
 
 @section('currentPageName')
-    Permissions
+    Groups
 @endsection
 
 @section('content')
     @include('partials.errorAlert')
     @include('partials.successAlert')
     <div class="container-fluid">
-        @include('partials.pagination', ['paginator' => $assignedPermissions])
+        @include('partials.pagination', ['paginator' => $assignedGroups])
         <div class="container-flow table-responsive">
             <table class="table table-striped table-responsive-sm">
                 <thead>
@@ -20,39 +20,39 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($assignedPermissions as $permission)
+                @foreach($assignedGroups as $group)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $permission->name }}</td>
-                        <td>{{ $permission->description }}</td>
+                        <td>{{ $group->name }}</td>
+                        <td>{{ $group->description }}</td>
                         <td>
-                            <a class="btn btn-danger" href="{{ route('admin.groups.revokePermission', [ 'group' => $group->id ,'permission' => $permission->id ] ) }}">Revoke</a>
+                            <a class="btn btn-danger" href="{{ route('admin.users.revokeGroup', [ 'user' => $user->id ,'group' => $group->id ] ) }}">Revoke</a>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
-        @include('partials.pagination', ['paginator' => $assignedPermissions])
-        <form action="{{ route('admin.groups.grantPermission', [ 'group' => $group->id ] ) }}" method="POST">
+        @include('partials.pagination', ['paginator' => $assignedGroups])
+        <form action="{{ route('admin.users.grantGroup', [ 'user' => $user->id ] ) }}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-12">
-                    <select class="form-control mb-3" id="permission" name="selectedPermission">
-                        <option selected disabled>Please select permission</option>
-                        @foreach($allPermissions as $permission)
-                            <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                    <select class="form-control mb-3" id="group" name="selectedGroup">
+                        <option selected disabled>Please select group</option>
+                        @foreach($allGroups as $group)
+                            <option value="{{ $group->id }}">{{ $group->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 text-center">
-                    <button class="btn btn-success" type="submit">Grant permission</button>
+                    <button class="btn btn-success" type="submit">Grant group</button>
                 </div>
             </div>
         </form>
         <hr>
         <div class="float-end">
-            <a class="btn btn-secondary" href="{{ route('admin.groups.index') }}">Back</a>
+            <a class="btn btn-secondary" href="{{ route('admin.users.index') }}">Back</a>
         </div>
     </div>
 @endsection

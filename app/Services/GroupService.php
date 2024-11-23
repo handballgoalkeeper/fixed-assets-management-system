@@ -129,4 +129,12 @@ class GroupService
             throw new GeneralException();
         }
     }
+
+    /**
+     * @throws GeneralException|EntityNotFoundException
+     */
+    public function findAll(): Collection
+    {
+        return $this->groupRepository->findAll();
+    }
 }
