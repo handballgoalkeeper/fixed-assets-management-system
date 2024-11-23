@@ -101,4 +101,12 @@ class UserService
         $this->userXGroupsRepository->save($model);
 
     }
+
+    /**
+     * @throws GeneralException
+     */
+    public function revokeGroup(UserXGroupModel $model)
+    {
+        $this->userXGroupsRepository->destroy($model);
+    }
 }

@@ -10,7 +10,9 @@ use App\Exceptions\ValueNotUniqueException;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\GrantGroupToUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\GroupModel;
 use App\Models\User;
+use App\Models\UserXGroupModel;
 use App\Services\GroupService;
 use App\Services\UserService;
 use Exception;
@@ -123,5 +125,17 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('success', 'User granted successfully.');
+    }
+
+    public function revokeGroup(User $user, UserXGroupModel $group): RedirectResponse
+    {
+        try {
+            $this->userService->revokeGroup(model: $group);
+        }
+        catch (Exception) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return redirect()->back()->with('success', 'Permission revoked successfully.');
     }
 }

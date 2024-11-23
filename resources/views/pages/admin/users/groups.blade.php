@@ -26,7 +26,7 @@
                         <td>{{ $group->name }}</td>
                         <td>{{ $group->description }}</td>
                         <td>
-{{--                            <a class="btn btn-danger" href="{{ route('admin.users.revokeGroup', [ 'group' => $group->id ,'permission' => $permission->id ] ) }}">Revoke</a>--}}
+                            <a class="btn btn-danger" href="{{ route('admin.users.revokeGroup', [ 'user' => $user->id ,'group' => $group->id ] ) }}">Revoke</a>
                         </td>
                     </tr>
                 @endforeach

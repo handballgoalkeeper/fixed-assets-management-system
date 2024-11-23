@@ -74,4 +74,17 @@ class UserXGroupsRepository implements CrudRepository, PaginatedRepository
 
         return $count > 0;
     }
+
+    /**
+     * @throws GeneralException
+     */
+    public function destroy(UserXGroupModel | Model $model): void
+    {
+        try {
+            $model->delete();
+        }
+        catch (Exception) {
+            throw new GeneralException();
+        }
+    }
 }
