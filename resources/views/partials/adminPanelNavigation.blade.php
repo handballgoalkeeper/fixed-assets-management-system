@@ -14,11 +14,13 @@
             <div class="collapse navbar-collapse container" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     @foreach(AdminPanelNavigationConfig::getAdminPanelNavigation() as $routeName => $routeMeta)
-                        <li class="nav-item">
-                            <a href="{{ $routeMeta['route'] }}" class="nav-link">
-                                <i class="fs-4 {{ $routeMeta['icon'] }}"></i> <span>{{ $routeName }}</span>
-                            </a>
-                        </li>
+                        @if(is_null($routeMeta['permissionNeeded']) or \App\Facades\AuthUserFacade::hasPermission($routeMeta['permissionNeeded']))
+                            <li class="nav-item">
+                                <a href="{{ $routeMeta['route'] }}" class="nav-link">
+                                    <i class="fs-4 {{ $routeMeta['icon'] }}"></i> <span>{{ $routeName }}</span>
+                                </a>
+                            </li>
+                        @endif
                     @endforeach
                     <li class="nav-item">
                         <a href="{{ route('logout') }}" class="nav-link text-danger fw-bolder">

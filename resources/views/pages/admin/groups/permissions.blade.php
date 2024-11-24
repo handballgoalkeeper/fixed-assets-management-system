@@ -26,7 +26,9 @@
                         <td>{{ $permission->name }}</td>
                         <td>{{ $permission->description }}</td>
                         <td>
-                            <a class="btn btn-danger" href="{{ route('admin.groups.revokePermission', [ 'group' => $group->id ,'permission' => $permission->id ] ) }}">Revoke</a>
+                            @if(\App\Facades\AuthUserFacade::hasPermission('admin-groups-permissions-revoke'))
+                                <a class="btn btn-danger" href="{{ route('admin.groups.revokePermission', [ 'group' => $group->id ,'permission' => $permission->id ] ) }}">Revoke</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -34,22 +36,24 @@
             </table>
         </div>
         @include('partials.pagination', ['paginator' => $assignedPermissions])
-        <form action="{{ route('admin.groups.grantPermission', [ 'group' => $group->id ] ) }}" method="POST">
-            @csrf
-            <div class="row">
-                <div class="col-lg-9 col-md-9 col-sm-12">
-                    <select class="form-control mb-3" id="permission" name="selectedPermission">
-                        <option selected disabled>Please select permission</option>
-                        @foreach($allPermissions as $permission)
-                            <option value="{{ $permission->id }}">{{ $permission->name }}</option>
-                        @endforeach
-                    </select>
+        @if(\App\Facades\AuthUserFacade::hasPermission('admin-groups-permissions-grant'))
+            <form action="{{ route('admin.groups.grantPermission', [ 'group' => $group->id ] ) }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-12">
+                        <select class="form-control mb-3" id="permission" name="selectedPermission">
+                            <option selected disabled>Please select permission</option>
+                            @foreach($allPermissions as $permission)
+                                <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 text-center">
+                        <button class="btn btn-success" type="submit">Grant permission</button>
+                    </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 text-center">
-                    <button class="btn btn-success" type="submit">Grant permission</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        @endif
         <hr>
         <div class="float-end">
             <a class="btn btn-secondary" href="{{ route('admin.groups.index') }}">Back</a>

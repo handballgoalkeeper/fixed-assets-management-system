@@ -7,7 +7,9 @@
 @section('content')
     @include('partials.successAlert')
     @include('partials.errorAlert')
-    <a class="btn btn-primary m-2" href="{{ route('manufacturers.view.create') }}">Add manufacturer</a>
+    @if(\App\Facades\AuthUserFacade::hasPermission('manufacturers-create'))
+        <a class="btn btn-primary m-2" href="{{ route('manufacturers.view.create') }}">Add manufacturer</a>
+    @endif
     @if(!is_null($manufacturers))
         @include('partials.pagination', ['paginator' => $manufacturers])
         <div class="container-flow table-responsive">
@@ -37,10 +39,12 @@
                                class="btn btn-outline-primary">
                                 View
                             </a>
-                            <a href="{{ route(name: 'manufacturers.history', parameters: [ 'manufacturer' => $manufacturer->id] ) }}"
-                               class="btn btn-outline-secondary">
-                                History
-                            </a>
+                            @if(\App\Facades\AuthUserFacade::hasPermission('manufacturers-history'))
+                                <a href="{{ route(name: 'manufacturers.history', parameters: [ 'manufacturer' => $manufacturer->id] ) }}"
+                                   class="btn btn-outline-secondary">
+                                    History
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

@@ -10,16 +10,17 @@ class GroupXPermissionModelObserver
 {
     public function created(GroupXPermissionModel $groupXPermissionModel): void
     {
-        Cache::forget(key: AuthUserFacade::AUTH_USER_SESSION_KEY);
+        Cache::tags(AuthUserFacade::AUTH_USER_SESSION_KEY)->flush();
     }
 
     public function updated(GroupXPermissionModel $groupXPermissionModel): void
     {
-        Cache::forget(key: AuthUserFacade::AUTH_USER_SESSION_KEY);
+        Cache::tags(AuthUserFacade::AUTH_USER_SESSION_KEY)->flush();
     }
 
     public function deleted(GroupXPermissionModel $groupXPermissionModel): void
     {
-        Cache::forget(key: AuthUserFacade::AUTH_USER_SESSION_KEY);
+        Cache::tags(AuthUserFacade::AUTH_USER_SESSION_KEY)->flush();
+
     }
 }
