@@ -10,15 +10,39 @@ use Illuminate\Support\Facades\DB;
 class PermissionsSeeder extends Seeder
 {
     const PERMISSIONS = [
-        'manufacturer-crud' => 'Permission for doing CRUD with manufactures.',
-        'supplier-crud' => 'Permission for doing CRUD with suppliers.',
-        'department-crud' => 'Permission for doing CRUD with departments.',
-        'location-crud' => 'Permission for doing CRUD with locations.',
-        'manufacturer-history' => 'Permission for viewing manufacture history.',
-        'supplier-history' => 'Permission for viewing supplier history.',
-        'department-history' => 'Permission for viewing department history.',
-        'location-history' => 'Permission for viewing location history.',
-        'manufacture-history' => 'Permission for viewing manufacture history.'
+        'superuser' => 'GRANTS AUTHENTICATED USER ALL PERMISSIONS.',
+        'manufacturers-create' => 'Allows authenticated user to create new manufacturers.',
+        'manufacturers-view' => 'Allows authenticated user to view all manufacturers.',
+        'manufacturers-edit' => 'Allows authenticated user to edit manufacturers.',
+        'manufacturers-history' => 'Allows authenticated user to view manufacturers history.',
+        'suppliers-create' => 'Allows authenticated user to create new suppliers.',
+        'suppliers-view' => 'Allows authenticated user to view all suppliers.',
+        'suppliers-edit' => 'Allows authenticated user to edit suppliers.',
+        'suppliers-history' => 'Allows authenticated user to view suppliers history.',
+        'departments-create' => 'Allows authenticated user to create new departments.',
+        'departments-view' => 'Allows authenticated user to view all departments.',
+        'departments-edit' => 'Allows authenticated user to edit departments.',
+        'departments-history' => 'Allows authenticated user to view departments history.',
+        'locations-create' => 'Allows authenticated user to create new locations.',
+        'locations-view' => 'Allows authenticated user to view all locations.',
+        'locations-edit' => 'Allows authenticated user to edit locations.',
+        'locations-history' => 'Allows authenticated user to view locations history.',
+        'admin-home' => 'Allows authenticated user to view admin home.',
+        'admin-groups-create' => 'Allows authenticated user to create new groups.',
+        'admin-groups-view' => 'Allows authenticated user to view all groups.',
+        'admin-groups-edit' => 'Allows authenticated user to edit groups.',
+        'admin-groups-history' => 'Allows authenticated user to view groups history.',
+        'admin-groups-permissions-view' => 'Allows authenticated user to see granted permissions in groups.',
+        'admin-groups-permissions-grant' => 'Allows authenticated user to grant permissions to groups.',
+        'admin-groups-permissions-revoke' => 'Allows authenticated user to revoke permissions from groups.',
+        'admin-permissions-view' => 'Allows authenticated user to view all permissions.',
+        'admin-users-create' => 'Allows authenticated user to create new users.',
+        'admin-users-view' => 'Allows authenticated user to view all users.',
+        'admin-users-edit' => 'Allows authenticated user to edit users.',
+        'admin-users-history' => 'Allows authenticated user to view users history.',
+        'admin-users-groups-view' => 'Allows authenticated user to see granted groups to users.',
+        'admin-users-groups-grant' => 'Allows authenticated user to grant groups to users.',
+        'admin-users-groups-revoke' => 'Allows authenticated user to revoke groups to users.',
     ];
     public function run(): void
     {
@@ -49,6 +73,7 @@ class PermissionsSeeder extends Seeder
 
         $progressBar->finish();
 
+        $this->command->getOutput()->newLine();
         $this->command->getOutput()->success('Permissions table seeded successfully.');
     }
 }

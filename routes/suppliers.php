@@ -10,16 +10,24 @@ Route::prefix('/suppliers')
     ->middleware(['auth'])
     ->group(function () {
 
-        Route::view(uri: '/create', view: 'pages.suppliers.createForm')->name('view.create');
+        Route::view(uri: '/create', view: 'pages.suppliers.createForm')
+            ->middleware(['HasPermission:suppliers-create'])
+            ->name('view.create');
 
-        Route::post(uri: '/create', action: 'create')->name('create');
+        Route::post(uri: '/create', action: 'create')
+            ->middleware(['HasPermission:suppliers-create'])
+            ->name('create');
 
-        Route::get(uri: '/', action: 'index')->name('index');
+        Route::get(uri: '/', action: 'index')
+            ->middleware(['HasPermission:suppliers-view'])
+            ->name('index');
 
         Route::get(uri: '/{supplier}', action: 'permalink')
+            ->middleware(['HasPermission:suppliers-view'])
             ->where('supplier', '^[1-9][0-9]*$')->name('permalink');
 
         Route::post(uri: '/{supplier}/update', action: 'update')
+            ->middleware(['HasPermission:suppliers-edit'])
             ->where('supplier', '^[1-9][0-9]*$')->name('update');
 
     });
@@ -29,6 +37,7 @@ Route::prefix('/suppliers')
     ->controller(SupplierHistoryController::class)
     ->group(function () {
         Route::get(uri: '/{supplier}/history', action: 'history')
+            ->middleware(['HasPermission:suppliers-history'])
             ->where('supplier', '^[1-9][0-9]*$')
             ->name('history');
     });
