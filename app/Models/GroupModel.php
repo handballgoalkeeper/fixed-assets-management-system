@@ -17,4 +17,5 @@ class GroupModel extends Model
         'name',
         'description',
         'is_active',
-    ];}
+    ];
+}

@@ -5,7 +5,7 @@ use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::view(uri: '/admin/', view: 'pages.admin.index')->middleware(['auth'])->name(name: 'admin.index');
+Route::view(uri: '/admin/', view: 'pages.admin.index')->middleware(['auth', 'HasPermission:admin-view'])->name(name: 'admin.index');
 
 Route::prefix('/admin/groups')
     ->name('admin.groups.')

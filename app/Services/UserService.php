@@ -95,9 +95,12 @@ class UserService
 
         $model = new UserXGroupModel([
             'user_id' => $user->getAttribute('id'),
-            'group_id' => $requestData['selectedGroup'],
-            'granted_by' => auth()->id(),
+            'group_id' => $requestData['selectedGroup']
         ]);
+
+        if (auth()->check()) {
+            $model->setAttribute('granted_by', auth()->id());
+        }
 
         $this->userXGroupsRepository->save($model);
 

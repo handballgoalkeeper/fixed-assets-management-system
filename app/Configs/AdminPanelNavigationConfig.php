@@ -16,7 +16,6 @@ class AdminPanelNavigationConfig
                 'icon' => 'bi-house',
                 'controller' => null,
                 'permissionNeeded' => [
-                    'superuser',
                     'admin-home'
                 ]
             ],
@@ -25,7 +24,6 @@ class AdminPanelNavigationConfig
                 'icon' => 'bi-collection',
                 'controller' => GroupsController::class,
                 'permissionNeeded' => [
-                    'superuser',
                     'admin-groups-view'
                 ]
             ],
@@ -34,7 +32,6 @@ class AdminPanelNavigationConfig
                 'icon' => 'bi-person-vcard',
                 'controller' => PermissionsController::class,
                 'permissionNeeded' => [
-                    'superuser',
                     'admin-permissions-view'
                 ]
             ],
@@ -43,7 +40,6 @@ class AdminPanelNavigationConfig
                 'icon' => 'bi-person',
                 'controller' => UserController::class,
                 'permissionNeeded' => [
-                    'superuser',
                     'admin-users-view'
                 ]
             ],
