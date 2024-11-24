@@ -23,7 +23,6 @@ class MainNavigationConfig
                 'icon' => 'bi-wrench',
                 'controller' => ManufacturerController::class,
                 'permissionNeeded' => [
-                    'superuser',
                     'manufacturers-view'
                 ]
             ],
@@ -32,7 +31,6 @@ class MainNavigationConfig
                 'icon' => 'bi-people',
                 'controller' => SupplierController::class,
                 'permissionNeeded' => [
-                    'superuser',
                     'suppliers-view'
                 ]
             ],
@@ -41,7 +39,6 @@ class MainNavigationConfig
                 'icon' => 'bi-person-workspace',
                 'controller' => DepartmentController::class,
                 'permissionNeeded' => [
-                    'superuser',
                     'departments-view'
                 ]
             ],
@@ -50,7 +47,6 @@ class MainNavigationConfig
                 'icon' => 'bi-geo',
                 'controller' => LocationsController::class,
                 'permissionNeeded' => [
-                    'superuser',
                     'locations-view'
                 ]
             ]

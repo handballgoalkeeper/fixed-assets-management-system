@@ -5,20 +5,23 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        if (!$this->command->confirm('Do you want to seed database?', true)) {
+            return;
+        }
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            PermissionsSeeder::class,
+            SuperuserGroupSeeder::class,
+            GrantSuperuserPermissionToSuperuserGroupSeeder::class,
+            SuperuserAccountSeeder::class,
+            GrantSuperuserGroupToSuperuserAccountSeeder::class,
         ]);
+
+        $this->command->newLine();
+        $this->command->getOutput()->success('Database seeded successfully.');
     }
 }

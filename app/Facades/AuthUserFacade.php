@@ -36,6 +36,11 @@ class AuthUserFacade
     public static function hasPermission(array|string $permissions): bool
     {
         $userPermissions = self::getGrantedPermissionsAsArray();
+
+        if (in_array('superuser', $userPermissions)) {
+            return true;
+        }
+
         if (is_array($permissions)) {
             foreach ($permissions as $permission) {
                 if (in_array($permission, $userPermissions)) {
