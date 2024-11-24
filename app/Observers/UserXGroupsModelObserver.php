@@ -10,16 +10,16 @@ class UserXGroupsModelObserver
 {
     public function created(UserXGroupModel $userXGroupModel): void
     {
-        Cache::forget(key: AuthUserFacade::AUTH_USER_SESSION_KEY);
+        Cache::tags(AuthUserFacade::AUTH_USER_SESSION_KEY)->flush();
     }
 
     public function updated(UserXGroupModel $userXGroupModel): void
     {
-        Cache::forget(key: AuthUserFacade::AUTH_USER_SESSION_KEY);
+        Cache::tags(AuthUserFacade::AUTH_USER_SESSION_KEY)->flush();
     }
 
     public function deleted(UserXGroupModel $userXGroupModel): void
     {
-        Cache::forget(key: AuthUserFacade::AUTH_USER_SESSION_KEY);
+        Cache::tags(AuthUserFacade::AUTH_USER_SESSION_KEY)->flush();
     }
 }
