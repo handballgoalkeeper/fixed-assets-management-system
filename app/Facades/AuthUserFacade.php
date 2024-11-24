@@ -30,7 +30,7 @@ class AuthUserFacade
         public static function forgetPermissionsCacheForCurrentUser(): void
     {
         $currentUserId = auth()->id();
-        Cache::forget(key: AuthUserFacade::AUTH_USER_SESSION_KEY . "_{$currentUserId}");
+        Cache::tags(self::AUTH_USER_SESSION_KEY)->forget(key: AuthUserFacade::AUTH_USER_SESSION_KEY . "_{$currentUserId}");
     }
 
     public static function hasPermission(array|string $permissions): bool
