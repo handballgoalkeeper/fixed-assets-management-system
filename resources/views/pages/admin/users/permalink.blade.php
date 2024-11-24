@@ -8,7 +8,7 @@
     <div class="container-fluid">
         @include('partials.successAlert')
         @include('partials.errorAlert')
-        <form action="{{ route( 'admin.users.update', [ 'user' => $user->id] ) }}" method="POST">
+        <form action="{{ \App\Facades\AuthUserFacade::hasPermission('admin-users-edit') ? route( 'admin.users.update', [ 'user' => $user->id] ) : '' }}" method="POST">
             @csrf
             <div class="form-group mb-3">
                 <label class="form-label" for="nameInput">Name:</label>
@@ -32,7 +32,9 @@
                 </select>
             </div>
             <div class="float-end">
-                <button type="submit" class="btn btn-success">Save</button>
+                @if(\App\Facades\AuthUserFacade::hasPermission('admin-users-edit'))
+                    <button type="submit" class="btn btn-success">Save</button>
+                @endif
                 <a class="btn btn-secondary" href="{{ route('admin.users.index') }}">Back</a>
             </div>
         </form>

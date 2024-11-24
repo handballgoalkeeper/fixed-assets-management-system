@@ -8,7 +8,7 @@
     <div class="container-fluid">
         @include('partials.successAlert')
         @include('partials.errorAlert')
-        <form action="{{ route(name: 'departments.update', parameters: [ 'department' => $department->id ]) }}"
+        <form action="{{ \App\Facades\AuthUserFacade::hasPermission('departments-edit') ? route(name: 'departments.update', parameters: [ 'department' => $department->id ]) : '' }}"
               method="POST">
             @csrf
             <div class="form-group mb-3">
@@ -33,7 +33,9 @@
                 </select>
             </div>
             <div class="float-end">
-                <button type="submit" class="btn btn-success">Save</button>
+                @if(\App\Facades\AuthUserFacade::hasPermission('departments-edit'))
+                    <button type="submit" class="btn btn-success">Save</button>
+                @endif
                 <a class="btn btn-secondary" href="{{ route('departments.index') }}">Back</a>
             </div>
         </form>

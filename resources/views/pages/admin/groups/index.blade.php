@@ -7,7 +7,9 @@
 @section('content')
     @include('partials.errorAlert')
     @include('partials.successAlert')
-    <a class="btn btn-primary m-2" href="{{ route('admin.groups.view.create') }}">Add group</a>
+    @if(\App\Facades\AuthUserFacade::hasPermission('admin-groups-create'))
+        <a class="btn btn-primary m-2" href="{{ route('admin.groups.view.create') }}">Add group</a>
+    @endif
     @if(!is_null($groups))
         @include('partials.pagination', [ 'paginator' => $groups])
         <div class="container-flow table-responsive">
@@ -34,7 +36,9 @@
                         @endif
                         <td>
                             <a class="btn btn-outline-secondary" href="{{ route('admin.groups.permalink', [ 'group' => $group->id]) }}">View</a>
-                            <a class="btn btn-outline-secondary" href="{{ route('admin.groups.permissions', [ 'group' => $group->id]) }}">Permissions</a>
+                            @if(\App\Facades\AuthUserFacade::hasPermission('admin-groups-permissions-view'))
+                                <a class="btn btn-outline-secondary" href="{{ route('admin.groups.permissions', [ 'group' => $group->id]) }}">Permissions</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
