@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create(table: AssetDetailModel::TABLE, callback: function (Blueprint $table) {
             $table->id();
-            $table->string(column: 'fixed_asset_number', length: 255)->unique();
-            $table->string(column: 'it_number', length: 255)->unique();
+            $table->string(column: 'fixed_asset_number', length: 255)->nullable()->unique();
+            $table->string(column: 'it_number', length: 255)->nullable()->unique();
             $table->unsignedBigInteger(column: 'supplier_id')->nullable();
             $table->string(column: 'storage_type', length: 255)->nullable();
             $table->unsignedInteger(column: 'storage_capacity')->nullable();
