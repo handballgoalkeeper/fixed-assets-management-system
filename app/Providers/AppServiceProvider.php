@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\AssetDetailsRepository;
+use App\Repositories\AssetsRepository;
 use App\Repositories\DepartmentHistoryRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\GroupRepository;
@@ -15,6 +17,8 @@ use App\Repositories\SupplierHistoryRepository;
 use App\Repositories\SupplierRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\UserXGroupsRepository;
+use App\Services\AssetDetailsService;
+use App\Services\AssetService;
 use App\Services\DepartmentHistoryService;
 use App\Services\DepartmentService;
 use App\Services\GroupService;
@@ -152,6 +156,26 @@ class AppServiceProvider extends ServiceProvider
             return new UserService(
                 userRepository: $app->make(UserRepository::class),
                 userXGroupsRepository: $app->make(UserXGroupsRepository::class)
+            );
+        });
+
+        $this->app->singleton(AssetsRepository::class, function ($app) {
+            return new AssetsRepository();
+        });
+
+        $this->app->singleton(AssetService::class, function ($app) {
+            return new AssetService(
+                assetsRepository: $app->make(AssetsRepository::class)
+            );
+        });
+
+        $this->app->singleton(AssetDetailsRepository::class, function ($app) {
+            return new AssetDetailsRepository();
+        });
+
+        $this->app->singleton(AssetDetailsService::class, function ($app) {
+            return new AssetDetailsService(
+                assetDetailsRepository: $app->make(AssetDetailsRepository::class)
             );
         });
     }

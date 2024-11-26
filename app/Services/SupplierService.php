@@ -9,6 +9,7 @@ use App\Mappers\SupplierMapper;
 use App\Misc\Helper;
 use App\Models\SupplierModel;
 use App\Repositories\SupplierRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class SupplierService
@@ -75,8 +76,26 @@ class SupplierService
         }
 
         $supplierModel = SupplierMapper::requestToModel($request);
+
         $supplierModel->setAttribute('last_modified_by', auth()->id());
 
         $this->supplierRepository->save($supplierModel);
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function findAll(): Collection
+    {
+        return $this->supplierRepository->findAll();
+    }
+
+    /**
+     * @throws GeneralException
+     * @throws EntityNotFoundException
+     */
+    public function findAllActive(): Collection
+    {
+        return $this->supplierRepository->findAllActive();
     }
 }

@@ -23,7 +23,7 @@ class ManufacturerRepository implements CrudRepository, PaginatedRepository
         $manufacturers = ManufacturerModel::all();
 
         if ($manufacturers->isEmpty()) {
-            throw new EntityNotFoundException(entityName: 'Department');
+            throw new EntityNotFoundException(entityName: 'Manufacturer');
         }
 
         return $manufacturers;
@@ -70,5 +70,25 @@ class ManufacturerRepository implements CrudRepository, PaginatedRepository
         }
 
         return $count === 0;
+    }
+
+    /**
+     * @throws GeneralException
+     * @throws EntityNotFoundException
+     */
+    public function findAllActive(): Collection
+    {
+        try {
+            $manufacturers = ManufacturerModel::all()->where('is_active', true);
+        }
+        catch (Exception) {
+            throw new GeneralException();
+        }
+
+        if ($manufacturers->isEmpty()) {
+            throw new EntityNotFoundException(entityName: 'Manufacturer');
+        }
+
+        return $manufacturers;
     }
 }

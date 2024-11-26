@@ -28,11 +28,11 @@ class ManufacturerController extends Controller
             $manufacturers = $this->manufacturerService->getAllManufacturersPaginated(perPage: 10);
         } catch (EntityNotFoundException $e) {
             return view(view: 'pages.manufacturers.index', data: [
-                'manufacturers' => []
+                'manufacturers' => null
             ])->with('error', $e->getMessage());
         } catch (Exception $e) {
             return view(view: 'pages.manufacturers.index', data: [
-                'manufacturers' => []
+                'manufacturers' => null
             ])->with('error', "Unhandled exception occurred, please contact support.");
         }
 

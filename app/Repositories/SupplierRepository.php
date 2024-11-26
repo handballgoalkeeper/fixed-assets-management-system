@@ -16,10 +16,18 @@ class SupplierRepository implements CrudRepository, PaginatedRepository
 
     /**
      * @inheritDoc
+     * @throws GeneralException
      */
     public function findAll(): Collection
     {
-        // TODO: Implement findAll() method.
+        try {
+            $suppliers = SupplierModel::all();
+        }
+        catch (Exception) {
+            throw new GeneralException();
+        }
+
+        return $suppliers;
     }
 
     /**
@@ -30,7 +38,7 @@ class SupplierRepository implements CrudRepository, PaginatedRepository
     {
         try {
             $model->save();
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new GeneralException();
         }
     }
@@ -63,5 +71,25 @@ class SupplierRepository implements CrudRepository, PaginatedRepository
         }
 
         return $count === 0;
+    }
+
+    /**
+     * @throws GeneralException
+     * @throws EntityNotFoundException
+     */
+    public function findAllActive(): Collection
+    {
+        try {
+            $suppliers = SupplierModel::all()->where('is_active', true);
+        }
+        catch (Exception) {
+            throw new GeneralException();
+        }
+
+        if ($suppliers->isEmpty()) {
+            throw new EntityNotFoundException(entityName: 'Supplier');
+        }
+
+        return $suppliers;
     }
 }
