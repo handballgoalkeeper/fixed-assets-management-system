@@ -32,15 +32,6 @@ class AssetDetailsService
      */
     public function update(AssetDetailModel $model, array $requestData): void
     {
-//        "fixedAssetNumber" => "2-OS1233"
-//        "itNumber" => "IT132"
-//        "supplierId" => "10"
-//        "storageType" => "HDD"
-//        "storageCapacity" => "256"
-//        "storageCapacityUnitsOfMeasure" => "GB"
-//        "ramGeneration" => "DDR5"
-//        "ramCapacity" => "16"
-//        "ramCapacityUnitsOfMeasure" => "GB"
         if (!$this->assetDetailsRepository
             ->isValueUnique(column: 'fixed_asset_number', value: $requestData['fixedAssetNumber'], model: $model)
         ) {

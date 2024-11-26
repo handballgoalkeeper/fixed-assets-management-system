@@ -4,6 +4,7 @@ namespace App\Configs;
 
 use App\Http\Controllers\AssetsController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\SupplierController;
@@ -49,6 +50,14 @@ class MainNavigationConfig
                 'controller' => LocationsController::class,
                 'permissionNeeded' => [
                     'locations-view'
+                ]
+            ],
+            'Employees' => [
+                'route' => route('employees.index'),
+                'icon' => 'bi-person-fill-check',
+                'controller' => EmployeeController::class,
+                'permissionNeeded' => [
+                    'employees-view'
                 ]
             ],
             'Assets' => [
