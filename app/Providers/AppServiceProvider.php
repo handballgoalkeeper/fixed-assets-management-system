@@ -6,6 +6,7 @@ use App\Repositories\AssetDetailsRepository;
 use App\Repositories\AssetsRepository;
 use App\Repositories\DepartmentHistoryRepository;
 use App\Repositories\DepartmentRepository;
+use App\Repositories\EmployeeRepository;
 use App\Repositories\GroupRepository;
 use App\Repositories\GroupXPermissionRepository;
 use App\Repositories\LocationHistoryRepository;
@@ -21,6 +22,7 @@ use App\Services\AssetDetailsService;
 use App\Services\AssetService;
 use App\Services\DepartmentHistoryService;
 use App\Services\DepartmentService;
+use App\Services\EmployeeService;
 use App\Services\GroupService;
 use App\Services\LocationHistoryService;
 use App\Services\LocationsService;
@@ -176,6 +178,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(AssetDetailsService::class, function ($app) {
             return new AssetDetailsService(
                 assetDetailsRepository: $app->make(AssetDetailsRepository::class)
+            );
+        });
+
+        $this->app->singleton(EmployeeRepository::class, function ($app) {
+            return new EmployeeRepository();
+        });
+
+        $this->app->singleton(EmployeeService::class, function ($app) {
+            return new EmployeeService(
+                employeeRepository: $app->make(EmployeeRepository::class)
             );
         });
     }
