@@ -17,3 +17,4 @@ require __DIR__ . '/suppliers.php';
 require __DIR__ . '/departments.php';
 require __DIR__ . '/locations.php';
 require __DIR__ . '/admin.php';
+require __DIR__ . '/assets.php';

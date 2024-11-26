@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             GrantSuperuserPermissionToSuperuserGroupSeeder::class,
             SuperuserAccountSeeder::class,
             GrantSuperuserGroupToSuperuserAccountSeeder::class,
+            UnknownSupplierSeeder::class,
         ]);
 
         $this->command->newLine();

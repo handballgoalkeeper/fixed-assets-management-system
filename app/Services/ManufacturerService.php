@@ -8,6 +8,8 @@ use App\Exceptions\ValueNotUniqueException;
 use App\Mappers\ManufacturerMapper;
 use App\Models\ManufacturerModel;
 use App\Repositories\ManufacturerRepository;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ManufacturerService
@@ -26,6 +28,19 @@ class ManufacturerService
     public function getAllManufacturersPaginated(int $perPage): LengthAwarePaginator
     {
         return $this->manufacturerRepository->findAllPaginated(perPage: $perPage);
+    }
+
+    /**
+     * @throws EntityNotFoundException
+     */
+    public function getAllManufacturers(): Collection
+    {
+        return $this->manufacturerRepository->findAll();
+    }
+
+    public function getAllActiveManufacturers(): Collection
+    {
+        return $this->manufacturerRepository->findAllActive();
     }
 
     /**
@@ -73,5 +88,14 @@ class ManufacturerService
         $model->setAttribute('last_modified_by', auth()->id());
 
         $this->manufacturerRepository->save($model);
+    }
+
+    /**
+     * @throws GeneralException
+     * @throws EntityNotFoundException
+     */
+    public function findAllActive(): Collection
+    {
+        return $this->manufacturerRepository->findAllActive();
     }
 }

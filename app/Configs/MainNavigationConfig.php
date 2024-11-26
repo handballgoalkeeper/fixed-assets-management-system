@@ -2,6 +2,7 @@
 
 namespace App\Configs;
 
+use App\Http\Controllers\AssetsController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\ManufacturerController;
@@ -48,6 +49,14 @@ class MainNavigationConfig
                 'controller' => LocationsController::class,
                 'permissionNeeded' => [
                     'locations-view'
+                ]
+            ],
+            'Assets' => [
+                'route' => route('assets.index'),
+                'icon' => 'bi-pc-display',
+                'controller' => AssetsController::class,
+                'permissionNeeded' => [
+                    'assets-view'
                 ]
             ]
         ];

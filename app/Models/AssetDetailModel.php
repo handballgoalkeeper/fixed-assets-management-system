@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class AssetDetailModel extends Model
 {
@@ -36,4 +37,9 @@ class AssetDetailModel extends Model
         'created_at',
         'updated_at'
     ];
+
+    protected function supplier(): HasOne
+    {
+        return $this->hasOne(related: SupplierModel::class, foreignKey: 'id', localKey: 'supplier_id');
+    }
 }
