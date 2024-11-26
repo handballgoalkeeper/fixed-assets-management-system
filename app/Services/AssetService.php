@@ -24,14 +24,13 @@ class AssetService
      */
     public function create(array $requestData): void
     {
-//        TODO: Fix this with transactions
-        $assetDetailModel = app(AssetDetailsService::class)->createBlankAssetDetails();
-
         $assetModel = AssetMapper::requestToModel($requestData);
 
-        $assetModel->setAttribute('asset_details_id', $assetDetailModel->id);
-
-        $this->assetsRepository->save($assetModel);
+        DB::transaction(function () use ($assetModel) {
+            $assetDetailModel = app(AssetDetailsService::class)->createBlankAssetDetails();
+            $assetModel->setAttribute('asset_details_id', $assetDetailModel->id);
+            $this->assetsRepository->save($assetModel);
+        });
     }
 
     /**

@@ -32,13 +32,13 @@ class AssetDetailsService
      */
     public function update(AssetDetailModel $model, array $requestData): void
     {
-        if (!$this->assetDetailsRepository
+        if (!is_null($requestData['fixedAssetNumber']) && !$this->assetDetailsRepository
             ->isValueUnique(column: 'fixed_asset_number', value: $requestData['fixedAssetNumber'], model: $model)
         ) {
             throw new ValueNotUniqueException(entityName: 'Asset', columnName: 'fixed asset number');
         }
 
-        if (!$this->assetDetailsRepository
+        if (!is_null($requestData['itNumber']) &&!$this->assetDetailsRepository
             ->isValueUnique(column: 'it_number', value: $requestData['itNumber'], model: $model)
         ) {
             throw new ValueNotUniqueException(entityName: 'Asset', columnName: 'it number');

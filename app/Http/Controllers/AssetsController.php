@@ -39,11 +39,8 @@ class AssetsController extends Controller
     public function renderCreate(): View | RedirectResponse
     {
         try {
-            $manufacturers = $this->manufacturerService->getAllManufacturers();
-        } catch (EntityNotFoundException $e) {
-            return redirect()->back()->with('error', $e->getMessage());
-        }
-        catch (Exception) {
+            $manufacturers = $this->manufacturerService->getAllActiveManufacturers();
+        } catch (Exception) {
             return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
         }
 
