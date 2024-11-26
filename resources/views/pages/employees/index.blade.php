@@ -7,9 +7,9 @@
 @section('content')
     @include('partials.successAlert')
     @include('partials.errorAlert')
-{{--    @if(\App\Facades\AuthUserFacade::hasPermission('employees-create'))--}}
-{{--        <a class="btn btn-primary m-2" href="{{ route('employees.view.create') }}">Add manufacturer</a>--}}
-{{--    @endif--}}
+    @if(\App\Facades\AuthUserFacade::hasPermission('employees-create'))
+        <a class="btn btn-primary m-2" href="{{ route('employees.view.create') }}">Add manufacturer</a>
+    @endif
     @if(!is_null($employees))
         @include('partials.pagination', ['paginator' => $employees])
         <div class="container-flow table-responsive">

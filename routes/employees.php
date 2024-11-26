@@ -9,4 +9,10 @@ Route::prefix('/employees')
     ->middleware(['auth', 'HasPermission:employees-view'])
     ->group(function () {
         Route::get(uri: '/', action: 'index')->name(name: 'index');
+        Route::view('/create', 'pages.employees.createForm')
+            ->middleware(['HasPermission:employees-create'])
+            ->name('view.create');
+        Route::post('/create', 'create')
+            ->middleware(['HasPermission:employees-create'])
+            ->name('create');
     });
