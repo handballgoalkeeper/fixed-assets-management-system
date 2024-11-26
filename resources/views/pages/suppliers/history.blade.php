@@ -38,6 +38,7 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $row->action }}</td>
                         <td>{{ $row->name }}</td>
+                        <td>{{ $row->description }}</td>
                         <td>{{ $row->pib }}</td>
                         <td>{{ $row->contact_person }}</td>
                         @if( $row->is_active === 1 )

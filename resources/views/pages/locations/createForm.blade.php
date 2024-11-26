@@ -21,7 +21,7 @@
                        placeholder="Please enter street name..." required/>
             </div>
             <div class="form-group mb-3">
-                <label class="form-label" for="streetNumberInput">Street name</label>
+                <label class="form-label" for="streetNumberInput">Street number</label>
                 <input type="text" class="form-control" id="streetNumberInput" name="streetNumber"
                        placeholder="Please enter street number..." required/>
             </div>

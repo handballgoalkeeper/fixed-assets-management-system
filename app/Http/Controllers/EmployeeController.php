@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Enums\ErrorMessage;
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Exceptions\ValueNotUniqueException;
 use App\Http\Requests\CreateEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\Mappers\EmployeeMapper;
+use App\Models\EmployeeModel;
 use App\Services\EmployeeService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -60,6 +63,30 @@ class EmployeeController extends Controller
         }
 
         return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
+    }
+
+    public function permalink(EmployeeModel $employee): View
+    {
+        return view(view: 'pages.employees.permalink', data: [
+            'employee' => $employee
+        ]);
+    }
+
+    public function update(UpdateEmployeeRequest $request, EmployeeModel $employee): RedirectResponse
+    {
+        $requestData = $request->validated();
+
+        try {
+            $this->employeeService->update($employee, $requestData);
+        }
+        catch (GeneralException | ValueNotUniqueException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        catch(Exception) {
+            return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
+        }
+
+        return redirect()->back()->with('success', 'Employee updated successfully.');
     }
 
 }

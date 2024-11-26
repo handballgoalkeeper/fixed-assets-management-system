@@ -8,6 +8,7 @@ use App\Mappers\AssetMapper;
 use App\Misc\Helper;
 use App\Models\AssetModel;
 use App\Repositories\AssetsRepository;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class AssetService
@@ -23,6 +24,7 @@ class AssetService
      */
     public function create(array $requestData): void
     {
+//        TODO: Fix this with transactions
         $assetDetailModel = app(AssetDetailsService::class)->createBlankAssetDetails();
 
         $assetModel = AssetMapper::requestToModel($requestData);

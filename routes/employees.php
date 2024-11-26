@@ -15,4 +15,12 @@ Route::prefix('/employees')
         Route::post('/create', 'create')
             ->middleware(['HasPermission:employees-create'])
             ->name('create');
+        Route::get(uri: '/{employee}', action: 'permalink')
+            ->middleware(['HasPermission:employees-view'])
+            ->where('employee', '^[1-9][0-9]*$')
+            ->name('permalink');
+        Route::post(uri: '/{employee}/update', action: 'update')
+            ->middleware(['HasPermission:employees-edit'])
+            ->where('employee', '^[1-9][0-9]*$')
+            ->name('update');
     });
