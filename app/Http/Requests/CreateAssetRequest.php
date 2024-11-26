@@ -17,7 +17,7 @@ class CreateAssetRequest extends FormRequest
             'assetType' => 'required|string|max:255',
             'manufacturerId' => 'integer|nullable|exists:manufacturers,id',
             'assetModel' => 'required|string|max:255',
-            'serialNumber' => 'string|max:255|nullable',
+            'serialNumber' => 'string|max:255|nullable|unique:assets,serial_number',
             'description' => 'string|max:255|nullable'
         ];
     }
