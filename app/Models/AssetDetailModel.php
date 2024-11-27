@@ -42,4 +42,9 @@ class AssetDetailModel extends Model
     {
         return $this->hasOne(related: SupplierModel::class, foreignKey: 'id', localKey: 'supplier_id');
     }
+
+    protected function employee(): HasOne
+    {
+        return $this->hasOne(related: EmployeeModel::class, foreignKey: 'id', localKey: 'assigned_to');
+    }
 }

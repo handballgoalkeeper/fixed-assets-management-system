@@ -24,10 +24,11 @@ class UpdateAssetRequest extends FormRequest
             "supplierId" => "integer|nullable|exists:suppliers,id",
             "storageType" => "string|nullable|max:255",
             "storageCapacity" => "integer|nullable|min:0",
-            "storageCapacityUnitsOfMeasure" => "string|nullable|max:3",
+            "storageCapacityUnitsOfMeasure" => "string|nullable|max:7",
             "ramGeneration" => "string|nullable|max:8",
             "ramCapacity" => "integer|nullable|min:0",
-            "ramCapacityUnitsOfMeasure" => "string|nullable|max:3",
+            "ramCapacityUnitsOfMeasure" => "string|nullable|max:7",
+            "employeeId" => "integer|nullable|exists:employees,id"
         ];
     }
 }

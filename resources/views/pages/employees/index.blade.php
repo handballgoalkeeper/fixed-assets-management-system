@@ -8,7 +8,7 @@
     @include('partials.successAlert')
     @include('partials.errorAlert')
     @if(\App\Facades\AuthUserFacade::hasPermission('employees-create'))
-        <a class="btn btn-primary m-2" href="{{ route('employees.view.create') }}">Add manufacturer</a>
+        <a class="btn btn-primary m-2" href="{{ route('employees.view.create') }}">Add employee</a>
     @endif
     @if(!is_null($employees))
         @include('partials.pagination', ['paginator' => $employees])

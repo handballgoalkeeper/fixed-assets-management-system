@@ -9,6 +9,8 @@ use App\Mappers\LocationMapper;
 use App\Misc\Helper;
 use App\Models\LocationModel;
 use App\Repositories\LocationsRepository;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
@@ -79,5 +81,14 @@ class LocationsService
         }
 
         $this->locationsRepository->save($location);
+    }
+
+    /**
+     * @throws GeneralException
+     * @throws EntityNotFoundException
+     */
+    public function findAllActive(): Collection
+    {
+        return $this->locationsRepository->findAllActive();
     }
 }
