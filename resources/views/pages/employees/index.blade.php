@@ -41,11 +41,13 @@
                                class="btn btn-outline-primary">
                                 View
                             </a>
-                            <a href="{{ route(name: 'employees.assets', parameters: [ 'employee' => $employee->id] ) }}"
-                                class="btn btn-outline-primary"
-                            >
-                                Assets
-                            </a>
+                            @if(\App\Facades\AuthUserFacade::hasPermission('employee-assets-view'))
+                                <a href="{{ route(name: 'employees.assets', parameters: [ 'employee' => $employee->id] ) }}"
+                                   class="btn btn-outline-primary"
+                                >
+                                    Assets
+                                </a>
+                            @endif
 {{--                            @if(\App\Facades\AuthUserFacade::hasPermission('employees-history'))--}}
 {{--                                <a href="{{ route(name: 'employees.history', parameters: [ 'manufacturer' => $employee->id] ) }}"--}}
 {{--                                   class="btn btn-outline-secondary">--}}
