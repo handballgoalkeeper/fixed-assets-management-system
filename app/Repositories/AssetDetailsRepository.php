@@ -31,7 +31,7 @@ class AssetDetailsRepository implements CrudRepository
         try {
             $model->save();
         }
-        catch (Exception) {
+        catch (Exception $e) {
             throw new GeneralException();
         }
     }
