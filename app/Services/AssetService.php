@@ -39,7 +39,7 @@ class AssetService
      */
     public function update(AssetModel $model, array $requestData): void
     {
-        if (!$this->assetsRepository
+        if (!is_null( $requestData['serialNumber']) and !$this->assetsRepository
             ->isValueUnique(column: 'serial_number', value: $requestData['serialNumber'], model: $model)
         ) {
             throw new ValueNotUniqueException(entityName: 'Asset', columnName: 'serial number');

@@ -14,6 +14,7 @@ use App\Services\EmployeeService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -89,4 +90,16 @@ class EmployeeController extends Controller
         return redirect()->back()->with('success', 'Employee updated successfully.');
     }
 
+    public function assets(EmployeeModel $employee): View
+    {
+        try {
+            $assets = $this->employeeService->findAllAssetsPaginatedByEmployee($employee);
+        } catch (Exception $e) {
+            return view(view: 'pages.employees.assets', data: []);
+        }
+
+        return view(view: 'pages.employees.assets', data: [
+            'assets' => $assets
+        ]);
+    }
 }

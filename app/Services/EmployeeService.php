@@ -78,4 +78,12 @@ class EmployeeService
     {
         return $this->employeeRepository->findAllActive();
     }
+
+    /**
+     * @throws GeneralException
+     */
+    public function findAllAssetsPaginatedByEmployee(EmployeeModel $model, int $perPage = 10): LengthAwarePaginator
+    {
+        return $this->employeeRepository->findAllAssetsPaginatedByEmployeeId($perPage, $model->getAttribute('id'));
+    }
 }
