@@ -2,11 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
 use App\Models\AssetModel;
-use App\Models\DepartmentModel;
-use App\Repositories\CrudRepository;
-use App\Repositories\PaginatedRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -57,5 +55,25 @@ class AssetsRepository implements CrudRepository, PaginatedRepository
         }
 
         return $count === 0;
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function getNoOfAssetsPerAssetType(): \Illuminate\Support\Collection
+    {
+        try {
+            $data = DB::table(AssetModel::TABLE . " AS a")
+                ->select([
+                    'a.asset_type AS asset_type',
+                    DB::raw("COUNT(*) AS count")
+                ])->groupBy('a.asset_type')->get();
+        }
+        catch (Exception) {
+            throw new GeneralException();
+        }
+
+        return $data;
+
     }
 }

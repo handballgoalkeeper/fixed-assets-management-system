@@ -10,6 +10,7 @@ use App\Models\AssetModel;
 use App\Repositories\AssetsRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Ramsey\Collection\Collection;
 
 class AssetService
 {
@@ -69,5 +70,21 @@ class AssetService
             $model->setAttribute('last_modified_by', auth()->id());
             $this->assetsRepository->save($model);
         }
+    }
+
+    public function getNoOfAssetsPerAssetType(): array
+    {
+        $data = $this->assetsRepository->getNoOfAssetsPerAssetType()->toArray();
+        $output = [
+            'labels' => [],
+            'data' => [],
+        ];
+
+        foreach ($data as $value) {
+            $output['labels'][] = $value->asset_type;
+            $output['data'][] = $value->count;
+        }
+
+        return $output;
     }
 }
