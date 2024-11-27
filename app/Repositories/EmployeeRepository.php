@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Exceptions\GeneralException;
+use App\Models\AssetDetailModel;
+use App\Models\AssetModel;
 use App\Models\DepartmentModel;
 use App\Models\EmployeeModel;
 use App\Repositories\CrudRepository;
@@ -94,5 +96,21 @@ class EmployeeRepository implements CrudRepository, PaginatedRepository
         }
 
         return $employees;
+    }
+
+    /**
+     * @throws GeneralException
+     */
+    public function findAllAssetsPaginatedByEmployeeId(int $perPage, int $employeeId): LengthAwarePaginator
+    {
+        try {
+            $assets = AssetModel::join(AssetDetailModel::TABLE . ' AS ad', 'ad.id', '=', 'assets.id')
+                ->where('assigned_to', '=', $employeeId)->paginate($perPage);
+        }
+        catch (Exception $e) {
+            throw new GeneralException();
+        }
+
+        return $assets;
     }
 }

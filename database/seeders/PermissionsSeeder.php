@@ -38,6 +38,7 @@ class PermissionsSeeder extends Seeder
         'employee-view' => 'Allows authenticated user to view all employee.',
         'employee-edit' => 'Allows authenticated user to edit employee.',
         'employee-history' => 'Allows authenticated user to view employee history.',
+        'employee-assets-view' => 'Allows authenticated user to view all employees assets.',
         'admin-home' => 'Allows authenticated user to view admin home.',
         'admin-groups-create' => 'Allows authenticated user to create new groups.',
         'admin-groups-view' => 'Allows authenticated user to view all groups.',

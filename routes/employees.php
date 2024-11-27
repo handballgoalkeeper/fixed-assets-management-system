@@ -23,4 +23,8 @@ Route::prefix('/employees')
             ->middleware(['HasPermission:employees-edit'])
             ->where('employee', '^[1-9][0-9]*$')
             ->name('update');
+        Route::get(uri: '/{employee}/assets', action: 'assets')
+            ->middleware(['HasPermission:employees-assets-view'])
+            ->where('employee', '^[1-9][0-9]*$')
+            ->name('assets');
     });
