@@ -152,6 +152,19 @@
                                     </div>
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="locationSelect">Location: </label>
+                            <select class="form-select" id="locationSelect" name="locationId">
+                                <option value="" selected>Please select location...</option>
+                                @foreach($locations as $location)
+                                    <option
+                                        value="{{ $location->id }}" {{ (!is_null($asset->assetDetails->location) and $asset->assetDetails->location->id === $location->id) ? 'selected' : '' }}>
+                                        {{ $location->alias }} | {{ $location->street_name }} {{ $location->street_number }}, {{ $location->city }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
