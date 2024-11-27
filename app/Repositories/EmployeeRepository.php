@@ -76,4 +76,23 @@ class EmployeeRepository implements CrudRepository, PaginatedRepository
         return $count === 0;
     }
 
+    /**
+     * @throws GeneralException
+     * @throws EntityNotFoundException
+     */
+    public function findAllActive(): Collection
+    {
+        try {
+            $employees = EmployeeModel::where('is_active', '=', true)->get();
+        }
+        catch (Exception $e) {
+            throw new GeneralException();
+        }
+
+        if ($employees->isEmpty()) {
+            throw new EntityNotFoundException(entityName: 'Employees');
+        }
+
+        return $employees;
+    }
 }

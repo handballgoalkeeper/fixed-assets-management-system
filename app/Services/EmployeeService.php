@@ -9,6 +9,7 @@ use App\Mappers\EmployeeMapper;
 use App\Misc\Helper;
 use App\Models\EmployeeModel;
 use App\Repositories\EmployeeRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class EmployeeService
@@ -67,5 +68,14 @@ class EmployeeService
 
         $this->employeeRepository->save($current);
 
+    }
+
+    /**
+     * @throws GeneralException
+     * @throws EntityNotFoundException
+     */
+    public function findAllActive(): Collection
+    {
+        return $this->employeeRepository->findAllActive();
     }
 }

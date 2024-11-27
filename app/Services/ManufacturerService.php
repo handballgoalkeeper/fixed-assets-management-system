@@ -38,6 +38,10 @@ class ManufacturerService
         return $this->manufacturerRepository->findAll();
     }
 
+    /**
+     * @throws GeneralException
+     * @throws EntityNotFoundException
+     */
     public function getAllActiveManufacturers(): Collection
     {
         return $this->manufacturerRepository->findAllActive();

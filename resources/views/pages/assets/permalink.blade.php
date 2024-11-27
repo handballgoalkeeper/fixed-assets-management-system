@@ -46,6 +46,17 @@
                             <textarea class="form-control" id="descriptionTextarea" name="description"
                                       rows="1">{{ $asset->description }}</textarea>
                         </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="employeeSelect">Assigned to employee: </label>
+                            <select class="form-select" id="employeeSelect" name="employeeId">
+                                <option value="" selected>Please select employee...</option>
+                                @foreach($employees as $employee)
+                                    <option value="{{ $employee->id }}" {{ $asset->assetDetails->assigned_to === $employee->id ? 'selected' : '' }}>
+                                        {{ $employee->first_name }} {{ $employee->last_name }} {{ !is_null($employee->department) ? '| ' . $employee->department->name : '' }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group mb-3">
@@ -61,7 +72,7 @@
                         <div class="form-group mb-3">
                             <label class="form-label" for="supplierSelect">Suppliers: </label>
                             <select class="form-select" id="supplierSelect" name="supplierId">
-                                <option selected disabled>Please select supplier...</option>
+                                <option value="" selected>Please select supplier...</option>
                                 @foreach($suppliers as $supplier)
                                     <option
                                         value="{{ $supplier->id }}" {{ (!is_null($asset->assetDetails->supplier) and $asset->assetDetails->supplier->id === $supplier->id) ? 'selected' : '' }}>{{ $supplier->name }}</option>
@@ -74,7 +85,7 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="storageTypeSelect">Storage type: </label>
                                         <select class="form-select" id="storageTypeSelect" name="storageType">
-                                            <option selected disabled>Please select storage type...</option>
+                                            <option value="" selected>Please select storage type...</option>
                                             @foreach(\App\Enums\StorageType::cases() as $storageType)
                                                 <option
                                                     value="{{ $storageType->value }}" {{ (!is_null($asset->assetDetails->storage_type) and $asset->assetDetails->storage_type === $storageType->value) ? 'selected' : '' }}>{{ $storageType->name }}</option>
@@ -95,7 +106,7 @@
                                         <label class="form-label" for="storageCapacityUnitsOfMeasureSelect">Storage capacity unit of
                                             measure: </label>
                                         <select class="form-select" id="storageCapacityUnitsOfMeasureSelect" name="storageCapacityUnitsOfMeasure">
-                                            <option selected disabled>Please select storage type...</option>
+                                            <option value="" selected>Please select storage type...</option>
                                             @foreach(\App\Enums\CapacityUnitOfMeasure::cases() as $storageCapacityUnitOfMeasure)
                                                 <option
                                                     value="{{ $storageCapacityUnitOfMeasure->value }}" {{ (!is_null($asset->assetDetails->storage_capacity_units_of_measure) and $asset->assetDetails->storage_capacity_units_of_measure === $storageCapacityUnitOfMeasure->value) ? 'selected' : '' }}>{{ $storageCapacityUnitOfMeasure->name }}</option>
@@ -111,7 +122,7 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="ramGenerationSelect">Ram generation: </label>
                                         <select class="form-select" id="ramGenerationSelect" name="ramGeneration">
-                                            <option selected disabled>Please select storage type...</option>
+                                            <option value="" selected>Please select storage type...</option>
                                             @foreach(\App\Enums\RamGeneration::cases() as $ramGeneration)
                                                 <option
                                                     value="{{ $ramGeneration->value }}" {{ (!is_null($asset->assetDetails->ram_generation) && $asset->assetDetails->ram_generation === $ramGeneration->value) ? 'selected' : '' }}>{{ $ramGeneration->name }}</option>
@@ -130,10 +141,12 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="ramCapacityUnitsOfMeasureSelect">RAM capacity unit of measure: </label>
                                         <select class="form-select" id="ramCapacityUnitsOfMeasureSelect" name="ramCapacityUnitsOfMeasure">
-                                            <option selected disabled>Please select storage type...</option>
+                                            <option value="" selected>Please select storage type...</option>
                                             @foreach(\App\Enums\CapacityUnitOfMeasure::cases() as $storageCapacityUnitOfMeasure)
                                                 <option
-                                                    value="{{ $storageCapacityUnitOfMeasure->value }}" {{ (!is_null($asset->assetDetails->storage_capacity_units_of_measure) && $asset->assetDetails->storage_capacity_units_of_measure === $storageCapacityUnitOfMeasure->value) ? 'selected' : '' }}>{{ $storageCapacityUnitOfMeasure->name }}</option>
+                                                    value="{{ $storageCapacityUnitOfMeasure->value }}" {{ (!is_null($asset->assetDetails->storage_capacity_units_of_measure) && $asset->assetDetails->storage_capacity_units_of_measure === $storageCapacityUnitOfMeasure->value) ? 'selected' : '' }}>
+                                                    {{ $storageCapacityUnitOfMeasure->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>

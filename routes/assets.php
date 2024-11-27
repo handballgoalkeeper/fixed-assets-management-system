@@ -23,4 +23,7 @@ Route::prefix('/assets')
             ->middleware(['HasPermission:assets-edit'])
             ->where('asset', '^[0-9][1-9]*$')
             ->name(name: 'update');
+        Route::get(uri: '/{asset}/manage', action: 'manage')
+            ->middleware(['HasPermission:assets-manage'])
+            ->name(name: 'manage');
     });

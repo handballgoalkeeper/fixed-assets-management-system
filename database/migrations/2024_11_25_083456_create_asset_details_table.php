@@ -19,10 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger(column: 'supplier_id')->nullable();
             $table->string(column: 'storage_type', length: 255)->nullable();
             $table->unsignedInteger(column: 'storage_capacity')->nullable();
-            $table->string(column: 'storage_capacity_units_of_measure', length: 3)->nullable();
-            $table->string(column: 'ram_generation', length: 7)->nullable();
+            $table->string(column: 'storage_capacity_units_of_measure', length: 7)->nullable();
+            $table->string(column: 'ram_generation', length: 6)->nullable();
             $table->unsignedInteger(column: 'ram_capacity')->nullable();
-            $table->string(column: 'ram_capacity_units_of_measure', length: 6)->nullable();
+            $table->string(column: 'ram_capacity_units_of_measure', length: 7)->nullable();
             $table->boolean(column: 'is_active')->default(value: false);
             $table->timestamp(column: 'activated_at')->nullable();
             $table->boolean(column: 'is_expensed')->default(value: false);

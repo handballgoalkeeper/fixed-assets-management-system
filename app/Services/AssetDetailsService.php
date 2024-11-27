@@ -7,6 +7,7 @@ use App\Exceptions\ValueNotUniqueException;
 use App\Misc\Helper;
 use App\Models\AssetDetailModel;
 use App\Repositories\AssetDetailsRepository;
+use Carbon\Carbon;
 
 class AssetDetailsService
 {
@@ -80,6 +81,17 @@ class AssetDetailsService
         if (!Helper::isEqualWithType($model->getAttribute('ram_capacity_units_of_measure'), $requestData['ramCapacityUnitsOfMeasure'])
         ) {
             $model->setAttribute('ram_capacity_units_of_measure', $requestData['ramCapacityUnitsOfMeasure']);
+        }
+
+        if (!Helper::isEqualWithType($model->getAttribute('assigned_to'), $requestData['employeeId'])) {
+            $model->setAttribute('assigned_to', $requestData['employeeId']);
+            if (is_null($requestData['employeeId'])) {
+                $model->setAttribute('is_assigned', false);
+                $model->setAttribute('assigned_at', null);
+            } else {
+                $model->setAttribute('is_assigned', true);
+                $model->setAttribute('assigned_at', Carbon::now());
+            }
         }
 
         if ($model->isDirty()) {

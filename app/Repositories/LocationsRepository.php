@@ -74,4 +74,24 @@ class LocationsRepository implements CrudRepository, PaginatedRepository
 
         return $count === 0;
     }
+
+    /**
+     * @throws EntityNotFoundException
+     * @throws GeneralException
+     */
+    public function findAllActive(): Collection
+    {
+        try {
+           $locations = LocationModel::where(column: 'is_active', operator: '=', value: true)->get();
+        }
+        catch (Exception) {
+            throw new GeneralException();
+        }
+
+        if ($locations->isEmpty()) {
+            throw new EntityNotFoundException(entityName: 'Locations');
+        }
+
+        return $locations;
+    }
 }
