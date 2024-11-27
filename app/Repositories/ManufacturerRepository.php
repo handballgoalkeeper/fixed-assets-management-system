@@ -50,7 +50,7 @@ class ManufacturerRepository implements CrudRepository, PaginatedRepository
         $manufacturers = DB::table(ManufacturerModel::TABLE)->paginate(perPage: $perPage);
 
         if ($manufacturers->isEmpty()) {
-            throw new EntityNotFoundException(entityName: 'Department');
+            throw new EntityNotFoundException(entityName: 'Manufacturers');
         }
 
         return $manufacturers;
