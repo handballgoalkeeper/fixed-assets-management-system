@@ -8,6 +8,7 @@ use App\Misc\Helper;
 use App\Models\AssetDetailModel;
 use App\Repositories\AssetDetailsRepository;
 use Carbon\Carbon;
+use PHPUnit\TextUI\Help;
 
 class AssetDetailsService
 {
@@ -92,6 +93,10 @@ class AssetDetailsService
                 $model->setAttribute('is_assigned', true);
                 $model->setAttribute('assigned_at', Carbon::now());
             }
+        }
+
+        if (!Helper::isEqualWithType($model->getAttribute('location_id'), $requestData['locationId'])) {
+            $model->setAttribute('location_id', $requestData['locationId']);
         }
 
         if ($model->isDirty()) {

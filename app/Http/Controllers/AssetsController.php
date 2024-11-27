@@ -100,7 +100,6 @@ class AssetsController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
         catch (Exception $e) {
-            dd($e->getMessage());
             return redirect()->back()->with('error', ErrorMessage::UNHANDLED_EXCEPTION->value);
         }
 

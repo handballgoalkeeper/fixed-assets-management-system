@@ -28,7 +28,8 @@ class UpdateAssetRequest extends FormRequest
             "ramGeneration" => "string|nullable|max:8",
             "ramCapacity" => "integer|nullable|min:0",
             "ramCapacityUnitsOfMeasure" => "string|nullable|max:7",
-            "employeeId" => "integer|nullable|exists:employees,id"
+            "employeeId" => "integer|nullable|exists:employees,id",
+            "locationId" => "integer|nullable|exists:locations,id"
         ];
     }
 }
