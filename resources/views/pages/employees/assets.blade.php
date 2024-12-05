@@ -31,7 +31,7 @@
                         <td>{{ $asset->asset_model}}</td>
                         <td>{{ $asset->serial_number}}</td>
                         <td>
-                            <textarea class="w-100" rows="1" disabled>{{$asset->description}}</textarea>
+                            <textarea class="form-control w-100" rows="1" disabled>{{$asset->description}}</textarea>
                         </td>
                         <td>{{ $asset->description}}</td>
                     </tr>

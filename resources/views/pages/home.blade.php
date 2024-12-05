@@ -10,7 +10,7 @@
             <div class="col-lg-2 col-md-2 col-sm-12 border rounded border-dark p-3 m-2">
                 <p class="text-center">Number of assets per asset type</p>
                 <hr>
-                <canvas id="myChart"></canvas>
+                <canvas id="noOfAssetsPerAssetTypeChart"></canvas>
             </div>
         </div>
     </div>
@@ -18,15 +18,13 @@
     <script src="{{ asset('js/colors.js') }}"></script>
 
     <script>
-        const data = @json($numberOfAssetsPerAssetType['data']);
-
-        const ctx = document.getElementById('myChart').getContext('2d');
-        var myPieChart = new Chart(ctx, {
+        const ctx = document.getElementById('noOfAssetsPerAssetTypeChart').getContext('2d');
+        const myPieChart = new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: @json($numberOfAssetsPerAssetType['labels']),
                 datasets: [{
-                    data: data,
+                    data:  @json($numberOfAssetsPerAssetType['data']),
                     backgroundColor: colors,
                     borderWidth: 1,
                     hoverOffset: 25,

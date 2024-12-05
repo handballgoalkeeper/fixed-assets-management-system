@@ -43,9 +43,11 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        $isUserActive = (bool) DB::table(User::TABLE)->select(columns: [
+        $isUserActive = DB::table(User::TABLE)->select(columns: [
             'is_active'
-        ])->where(column: 'email', operator: '=', value: $this->get('email'))->first()->is_active;
+        ])->where(column: 'email', operator: '=', value: $this->get('email'))->first();
+
+        $isUserActive = !is_null($isUserActive) && (bool)$isUserActive;
 
         if (!$isUserActive) {
             RateLimiter::hit($this->throttleKey());
