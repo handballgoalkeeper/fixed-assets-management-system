@@ -1,0 +1,3 @@
+<footer>
+    Main footer
+</footer>
