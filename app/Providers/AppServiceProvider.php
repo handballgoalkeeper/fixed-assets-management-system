@@ -32,6 +32,7 @@ use App\Services\PermissionService;
 use App\Services\SupplierHistoryService;
 use App\Services\SupplierService;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
