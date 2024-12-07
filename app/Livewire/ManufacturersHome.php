@@ -2,12 +2,16 @@
 
 namespace App\Livewire;
 
+use App\Models\ManufacturerModel;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ManufacturersHome extends Component
 {
-    public function render()
+    public function render(): View
     {
-        return view('livewire.manufacturers-home');
+        return view(view: 'livewire.manufacturers-home', data: [
+            'manufacturersTableName' => ManufacturerModel::TABLE,
+        ]);
     }
 }

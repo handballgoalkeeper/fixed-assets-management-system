@@ -2,13 +2,6 @@
 
 namespace App\Configs;
 
-use App\Http\Controllers\AssetsController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\LocationsController;
-use App\Http\Controllers\ManufacturerController;
-use App\Http\Controllers\SupplierController;
-
 class MainNavigationConfig
 {
     public static function getMainNavigation(): array
@@ -23,7 +16,6 @@ class MainNavigationConfig
             'Manufacturers' => [
                 'route' => route('manufacturers.index'),
                 'icon' => 'bi-wrench',
-                'controller' => ManufacturerController::class,
                 'permissionNeeded' => [
                     'manufacturers-view'
                 ]
@@ -31,7 +23,6 @@ class MainNavigationConfig
             'Suppliers' => [
                 'route' => route('suppliers.index'),
                 'icon' => 'bi-people',
-                'controller' => SupplierController::class,
                 'permissionNeeded' => [
                     'suppliers-view'
                 ]
@@ -39,7 +30,6 @@ class MainNavigationConfig
             'Departments' => [
                 'route' => route('departments.index'),
                 'icon' => 'bi-person-workspace',
-                'controller' => DepartmentController::class,
                 'permissionNeeded' => [
                     'departments-view'
                 ]
@@ -47,7 +37,6 @@ class MainNavigationConfig
             'Locations' => [
                 'route' => route('locations.index'),
                 'icon' => 'bi-geo',
-                'controller' => LocationsController::class,
                 'permissionNeeded' => [
                     'locations-view'
                 ]
@@ -55,7 +44,6 @@ class MainNavigationConfig
             'Employees' => [
                 'route' => route('employees.index'),
                 'icon' => 'bi-person-fill-check',
-                'controller' => EmployeeController::class,
                 'permissionNeeded' => [
                     'employees-view'
                 ]
@@ -63,7 +51,6 @@ class MainNavigationConfig
             'Assets' => [
                 'route' => route('assets.index'),
                 'icon' => 'bi-pc-display',
-                'controller' => AssetsController::class,
                 'permissionNeeded' => [
                     'assets-view'
                 ]
