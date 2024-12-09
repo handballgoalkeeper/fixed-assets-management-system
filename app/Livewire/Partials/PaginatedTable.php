@@ -7,17 +7,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 use Livewire\Component;
-use Livewire\Features\SupportPagination\WithoutUrlPagination;
+use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 class PaginatedTable extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
-// Possibly implement custom persistance across re-renders, so it can be private...
+// Possibly implement custom persistence across re-renders, so it can be private...
     public string $table;
-
-    private LengthAwarePaginator $paginator;
     public array $columnMapping;
     public bool $hasIndexColumn;
     public bool $hasViewBtn;

@@ -45,9 +45,13 @@ class ManufacturerRepository implements CrudRepository, PaginatedRepository
      * @inheritdoc
      * @throws EntityNotFoundException
      */
-    public function findAllPaginated(int $perPage): LengthAwarePaginator
+    public function findAllPaginated(int $perPage, string $searchQuery, string $sortByColumn, string $sortOrder): LengthAwarePaginator
     {
-        $manufacturers = DB::table(ManufacturerModel::TABLE)->paginate(perPage: $perPage);
+        $manufacturers = DB::table(ManufacturerModel::TABLE)
+            ->where('name', 'LIKE', "%" . $searchQuery . "%")
+            ->orWhere('description', 'LIKE', "%" . $searchQuery . "%")
+            ->orderBy($sortByColumn, $sortOrder)
+            ->paginate(perPage: $perPage);
 
         if ($manufacturers->isEmpty()) {
             throw new EntityNotFoundException(entityName: 'Manufacturers');

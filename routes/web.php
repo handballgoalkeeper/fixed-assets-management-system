@@ -5,13 +5,13 @@ use App\Livewire\DepartmentsHome;
 use App\Livewire\EmployeeHome;
 use App\Livewire\HomePage;
 use App\Livewire\LocationsHome;
-use App\Livewire\ManufacturersHome;
+use App\Livewire\Manufacturers\Index\Page AS ManufacturerIndex;
 use App\Livewire\SuppliersHome;
 use Illuminate\Support\Facades\Route;
 
 Route::get(uri: '/', action: HomePage::class)->name('home');
 
-Route::get(uri: '/manufacturers', action: ManufacturersHome::class)->name('manufacturers.index');
+Route::get(uri: '/manufacturers', action: ManufacturerIndex::class)->name('manufacturers.index');
 Route::get(uri: '/suppliers', action: SuppliersHome::class)->name('suppliers.index');
 Route::get(uri: '/departments', action: DepartmentsHome::class)->name('departments.index');
 Route::get(uri: '/locations', action: LocationsHome::class)->name('locations.index');

@@ -15,7 +15,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class ManufacturerService
 {
     public function __construct(
-        protected ManufacturerRepository $manufacturerRepository
+        public ManufacturerRepository $manufacturerRepository
     )
     {
     }
@@ -25,9 +25,14 @@ class ManufacturerService
      *
      * @throws EntityNotFoundException if no manufacturers are found (optional)
      */
-    public function getAllManufacturersPaginated(int $perPage): LengthAwarePaginator
+    public function getAllManufacturersPaginated(
+        int $perPage,
+        string $sortOrder = "DESC",
+        string $sortByColumn = null,
+        string $searchQuery = ''
+    ): LengthAwarePaginator
     {
-        return $this->manufacturerRepository->findAllPaginated(perPage: $perPage);
+        return $this->manufacturerRepository->findAllPaginated(perPage: $perPage, searchQuery: $searchQuery, sortByColumn: $sortByColumn, sortOrder: $sortOrder);
     }
 
     /**

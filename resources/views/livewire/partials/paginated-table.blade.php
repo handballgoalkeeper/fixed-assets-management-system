@@ -16,7 +16,7 @@
                         <th scope="col">Status</th>
                     @endif
                     @if($hasActionsEnabled)
-                        <th scope="col">Actions</th>
+                        <th scope="col" class="text-center">Actions</th>
                     @endif
                 </tr>
                 </thead>
@@ -37,7 +37,7 @@
                                 @endif
                             @endif
                             @if($hasActionsEnabled)
-                                <td>
+                                <td class="text-center">
                                     @if($hasViewBtn)
                                         <a href="#" class="btn btn-outline-primary">View</a>
                                     @endif
