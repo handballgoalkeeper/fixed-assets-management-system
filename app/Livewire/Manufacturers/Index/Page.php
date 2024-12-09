@@ -52,12 +52,9 @@ class Page extends Component
                 'status' => 'is_active'
             };
 
-            $sortDirection = $this->sortAsc ? 'ASC' : 'DESC';
-
-
             $manufacturers = $manufacturerService->getAllManufacturersPaginated(
                 perPage: 10,
-                sortOrder: $sortDirection,
+                sortOrder: $this->sortAsc ? 'ASC' : 'DESC',
                 sortByColumn: $column,
                 searchQuery: $this->search
             );
@@ -78,9 +75,5 @@ class Page extends Component
         return view(view: 'livewire.manufacturers.index.page', data: [
             'manufacturers' => $manufacturers
         ]);
-    }
-
-    public function search() {
-
     }
 }
