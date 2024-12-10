@@ -1,0 +1,15 @@
+.dropdown-item:hover {
+    background-color: #0056b3;
+}
+
+.dropdown-item:first-of-type {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.dropdown-item:last-of-type {
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+

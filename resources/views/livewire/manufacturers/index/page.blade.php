@@ -1,4 +1,4 @@
-<section>
+<section class="container">
     <div class="d-flex w-25">
         <input
             wire:model.live.debounce.250ms="search"
@@ -8,7 +8,7 @@
         >
     </div>
     <div class="container-flow table-responsive position-relative">
-        <table class="table table-striped table-responsive-sm" wire:key="{{ uniqid() }}">
+        <table class="table table-striped table-responsive-sm">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -26,7 +26,7 @@
                             Status
                         </x-manufacturers.index.sortable>
                     </th>
-                    <th scope="col" class="text-center">Actions</th>
+                    <th scope="col" class="text-center"></th>
                 </tr>
             </thead>
             @if(!is_null($manufacturers))
@@ -41,7 +41,15 @@
                         @else
                             <td class="text-danger">Inactive</td>
                         @endif
-                        <td>
+                        <td class="text-center">
+                            <x-manufacturers.index.dropdown>
+                                <div class="border border-dark dropdown-item">
+                                    <button class="w-100 btn">View</button>
+                                </div>
+                                <div class="border border-dark dropdown-item">
+                                    <button class="w-100 btn">History</button>
+                                </div>
+                            </x-manufacturers.index.dropdown>
                         </td>
                     </tr>
                 @endforeach
@@ -49,9 +57,6 @@
             @endif
         </table>
         <div wire:loading class="position-absolute bg-white top-0 left-0 w-100 h-100 opacity-50"></div>
-        <div class="position-absolute top-0 left-0 w-100 h-100 d-flex justify-content-center align-items-center z-n1">
-            <x-icon.bootstrap-spinner />
-        </div>
     </div>
     @if(!is_null($manufacturers))
         {{ $manufacturers->links() }}
